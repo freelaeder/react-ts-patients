@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Button from 'react-vant/es/button';
+import {hooks} from "react-vant";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const {width, height} = hooks.useWindowSize();
+
+    console.log(width); // 窗口宽度
+    console.log(height); // 窗口高度
+    return (
+        <>
+            <Button  type='primary'>Primary</Button>a
+            <h1 className={'active'} style={{color:'--cp-primary'}}>freelaeder</h1>
+        </>
+    );
 }
 
 export default App;
