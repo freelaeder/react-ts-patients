@@ -1,0 +1,24 @@
+// 头部组件样式
+// src/styles/header.module.scss
+@use "hairline";
+@use "color";
+
+.container {
+  height: 11.73vw;
+  padding: 0 4vw;
+  display: flex;
+  align-items: center;
+  font-size: 4.27vw;
+  .title {
+    padding: 0 1.33vw;
+    flex: 1;
+    text-align: center;
+  }
+  .link {
+    color: color.$main;
+  }
+}
+
+.border {
+  @include hairline.hairline-bottom;
+}

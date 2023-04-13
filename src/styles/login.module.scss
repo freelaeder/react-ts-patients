@@ -1,0 +1,129 @@
+// 登录页面组件样式
+// src/styles/login.module.scss
+@use "hairline";
+@use "color";
+
+.page {
+  height: calc(100vh - 11.73vw);
+  overflow-y: auto;
+  padding: 0 4vw;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 9.33vw;
+    line-height: 1;
+    h3 {
+      font-size: 6.4vw;
+      color: color.$text_1;
+      font-weight: 400;
+    }
+    span {
+      font-size: 4vw;
+      color: color.$text_2;
+    }
+  }
+  .form {
+    margin-top: 12vw;
+    .submit {
+      width: 100%;
+      height: 11.73vw;
+      background: color.$main;
+      color: #fff;
+      font-size: 4.27vw;
+      margin-top: 2vw;
+      border-radius: 5.87vw;
+    }
+    .disabled {
+      background: #fafafa;
+      color: color.$disabled;
+    }
+  }
+  .formItem {
+    padding: 4vw 0;
+    position: relative;
+    font-size: 3.73vw;
+    .text {
+      width: 66%;
+      display: block;
+      color: #323233;
+      height: 6.67vw;
+      font-size: 3.73vw;
+    }
+    input::placeholder {
+      color: #c3c3c5;
+    }
+    .msg {
+      color: color.$price;
+      font-size: 2.67vw;
+      margin-top: 2vw;
+    }
+    .right {
+      position: absolute;
+      right: 0;
+      top: 5.6vw;
+    }
+    .sendMsgCode {
+      font-size: 3.73vw;
+      color: color.$main;
+    }
+    .agree {
+      display: flex;
+      align-items: center;
+      span {
+        padding-left: 10px;
+      }
+      a {
+        color: color.$main;
+      }
+      input {
+        width: 3.73vw;
+        height: 3.73vw;
+      }
+    }
+    @include hairline.hairline-bottom;
+    &:last-child {
+      @include hairline.hairline-bottom(transparent);
+    }
+  }
+  .forget {
+    margin-top: 4vw;
+    font-size: 3.73vw;
+    a {
+      color: color.$tag;
+    }
+  }
+  .third {
+    .headline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10.67vw;
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        width: 14.67vw;
+        height: 0.13vw;
+        background: color.$line;
+        margin: 0 2.67vw;
+      }
+      span {
+        font-size: 3.2vw;
+        color: color.$tip;
+      }
+    }
+    .methods {
+      display: flex;
+      justify-content: center;
+      margin-top: 4vw;
+      img {
+        width: 8vw;
+        height: 8vw;
+      }
+    }
+  }
+}
+.my-button {
+  --rv-button-primary-background-color: red;
+}
