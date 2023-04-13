@@ -1,0 +1,79 @@
+@use "color";
+
+%border {
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+
+  width: percentage(1);
+  height: percentage(1);
+  transform: scale(1);
+  z-index: -1;
+
+  @for $i from 2 through 3 {
+    @media (-webkit-min-device-pixel-ratio: $i), (min-device-pixel-ratio: $i) {
+      width: percentage($i);
+      height: percentage($i);
+      transform: scale(1 / $i);
+    }
+  }
+}
+
+@function isPercentageUnit($value) {
+  @return str_index($value + "", "%") != null;
+}
+
+@mixin hairline(
+  $border-color: color.$line,
+  $border-radius: 0,
+  $border-style: solid
+) {
+  &:after {
+    border: 1px $border-style $border-color;
+    -webkit-border-radius: $border-radius;
+    border-radius: $border-radius;
+
+    @if isPercentageUnit($border-radius) == false {
+      @for $i from 2 through 3 {
+        @media (-webkit-min-device-pixel-ratio: $i),
+        (min-device-pixel-ratio: $i) {
+          -webkit-border-radius: $border-radius * $i;
+          border-radius: $border-radius * $i;
+        }
+      }
+    }
+
+    @extend %border;
+  }
+}
+
+@mixin hairline-top($border-color: color.$line, $border-style: solid) {
+  &:after {
+    border-top: 1px $border-style $border-color;
+    @extend %border;
+  }
+}
+
+@mixin hairline-right($border-color: color.$line, $border-style: solid) {
+  &:after {
+    border-right: 1px $border-style $border-color;
+    @extend %border;
+  }
+}
+
+@mixin hairline-bottom($border-color: color.$line, $border-style: solid) {
+  &:after {
+    border-bottom: 1px $border-style $border-color;
+    @extend %border;
+  }
+}
+
+@mixin hairline-left($border-color: color.$line, $border-style: solid) {
+  &:after {
+    border-left: 1px $border-style $border-color;
+    @extend %border;
+  }
+}
