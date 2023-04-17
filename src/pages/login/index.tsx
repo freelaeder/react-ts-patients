@@ -14,7 +14,7 @@ export default function Login() {
         <Helmet>
             <title>优医问诊--登录</title>
         </Helmet>
-        {/*<Header link={"注册"}/>*/}
+        <Header link={'注册'} />
         <div className={styles.page}>
             <div className={styles.title}>
                 <h3>{mobileLogin ? "短信验证码登录" : "密码登录"}</h3>

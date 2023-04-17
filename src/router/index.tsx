@@ -3,11 +3,11 @@ import Home from "@pages/home";
 import Login from "@pages/login";
 
 
-
 export const router = createBrowserRouter([
-    { path: "", element: <Home /> },
-    { path: "/login", element: <Login /> },
+    {path: "", element: <Home/>},
+    {path: "/login", element: <Login/>},
 ]);
 export default function AppRouter() {
-    return <RouterProvider router={router}/>
+
+    return <RouterProvider router={router} />
 }

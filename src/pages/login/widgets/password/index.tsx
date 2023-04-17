@@ -1,19 +1,29 @@
 // 密码登录组件
 import styles from "@styles/login.module.scss";
 import useToggle from "@hooks/useToggle";
-import {Button, Input, Form, Checkbox} from 'react-vant'
-import {useState} from "react";
+import {Button, Input, Form, Checkbox, Toast} from 'react-vant'
+import {ChangeEvent, useState} from "react";
+import {EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
+import NProgress from "nprogress";
+import delayTwoSeconds from "@hooks/delaytwoTime";
 
 export default function Password() {
     // 控制密码是否显示
-    const [visible, setVisible] = useToggle(false);
+    const [visible, setVisible] = useToggle(true);
     // 复选框
     const [checked, setChecked] = useState(false)
     const [form] = Form.useForm()
 
-    const onFinish = (values: any) => {
-        console.log(values)
+    const onFinish = async (values: ChangeEvent<HTMLFormElement>) => {
+        if (!checked) {
+            Toast.info('请勾选协议')
+        }
+        NProgress.start()
+        await delayTwoSeconds();
+        NProgress.done()
     }
+
+
     // 渲染视图
     return (
         <Form
@@ -33,6 +43,7 @@ export default function Password() {
                     message:
                         'A prime is a natural number greater than 1 that has no positive divisors other than 1 and itself.',
                 }}
+                initialValue={'13230000001'}
                 colon={true} // 取消冒号
                 rules={[{required: false, message: '请填写正确的用户名'},
                     {
@@ -45,7 +56,7 @@ export default function Password() {
                     },]}
                 name='username'
             >
-                <Input placeholder='请输入用户名'/>
+                <Input autoComplete={'on'} placeholder='请输入用户名'/>
             </Form.Item>
             <Form.Item
                 rules={[{required: false, message: '请填写密码'},
@@ -58,9 +69,14 @@ export default function Password() {
                         },
                     },
                 ]}
+
                 name='password'
             >
-                <Input placeholder='请输入密码'/>
+                <Input name={'password'} autoComplete="current-password" type={!visible ? 'tel' : 'password'}
+                       placeholder='请输入密码'
+                       suffix={<div onClick={setVisible}> {!visible ?
+                           <EyeOutline fontSize={20}/> : <EyeInvisibleOutline fontSize={20}/>}  </div>}
+                />
             </Form.Item>
             <Form.Item
             >

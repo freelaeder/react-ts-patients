@@ -69,4 +69,8 @@ ol {
   background-color: var(--cp-primary) !important;
 }
 
-
+.rv-cell:last-child::after,
+.rv-form-item::after,
+.rv-cell--borderless::after {
+  display: none;
+}
