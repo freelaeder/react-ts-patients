@@ -5,7 +5,6 @@ import {Button, Input, Form, Checkbox, Toast} from 'react-vant'
 import {useState} from "react";
 import {EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
 import NProgress from "nprogress";
-import delayTwoSeconds from "@hooks/delaytwoTime";
 import {useLoginByPasswordMutation} from "@store/apiSlice/authApiSlice";
 import {useTypedDispatch} from "@store/index";
 import {useNavigate} from "react-router-dom";

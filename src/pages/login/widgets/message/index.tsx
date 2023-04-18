@@ -1,9 +1,13 @@
 // 短信登录组件
 import styles from "@styles/login.module.scss";
 import {Button, Checkbox, Form, Input, Toast} from 'react-vant';
-import React, {ChangeEvent, useEffect,  useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import useToggle from "@hooks/useToggle";
 import useCountdown from "@hooks/delayTime";
+import {useLoginByMsgCodeMutation, useSendMsgCodeMutation} from "@store/apiSlice/authApiSlice";
+import {useTypedDispatch} from "@store/index";
+import {useNavigate} from "react-router-dom";
+import {saveAuth} from "@store/slices/authSlice";
 
 export default function Message() {
     // 是否显示短信验证码
@@ -14,30 +18,75 @@ export default function Message() {
     const [time, reset] = useCountdown(60)
     // 手机号
     const [phone, setPhone] = useState('13230000001')
-    const [form] = Form.useForm()
 
-    const onFinish = (values: ChangeEvent<HTMLFormElement>) => {
+    const [form] = Form.useForm()
+    // 用于发送手机验证码
+    const [sendMsgCodeRequest] = useSendMsgCodeMutation();
+    // 用于短信登录
+    const [loginByMsgCode] = useLoginByMsgCodeMutation()
+    // dispatch 方法
+    const dispatch = useTypedDispatch()
+    // 路由信息
+    const navigate = useNavigate()
+
+    const onFinish = async (values: { mobile: string; code: string }) => {
         if (!checked) {
             Toast.info('请勾选协议')
+            return
+        }
+        const {mobile, code} = values
+        try {
+            // 发送请求
+            const res = await loginByMsgCode({
+                mobile, code
+            }).unwrap()
+            // 请求成功
+            if (res.code === 10000) {
+                // 登录成功，保存用户凭证
+                dispatch(saveAuth(res.data))
+                // 消息提示
+                Toast({
+                    message: "登录成功",
+                    onClose: () => {
+                        // 跳转到个人中心页面
+                        navigate("/personal");
+                    },
+                });
+            } else {
+                Toast.info(res.message)
+            }
+        } catch (e) {
+            console.log(e)
         }
     }
 
-    // 若倒计时为0，修改
+    // 若倒计时为0，修改  相当于倒计时归零,让再次发送的按钮显示
     useEffect(() => {
         if (time === 0 && !visible) {
             setVisible()
         }
     }, [time])
     // 发生短信验证码
-    const sendCode = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const sendCode = async (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
         // 如果验证通过
         if (/^1[3-9]\d{9}$/.test(phone)) {
-            setVisible()
-            reset()
+            // 发送手机验证码请求
+            try {
+                const res = await sendMsgCodeRequest({mobile: phone, type: 'login'}).unwrap()
+                Toast.info('请求成功')
+                // 显示倒计时
+                setVisible()
+                // 重置倒计时时间
+                reset()
+            } catch (e) {
+                Toast.info('请求失败')
+            }
+
             return
         }
-        Toast.info('请填写手机号')
+        // 不通过
+        Toast.info('请填写正确的手机号')
     }
 
     // 渲染视图
@@ -70,9 +119,9 @@ export default function Message() {
                             return Promise.reject(new Error('请填写正确的手机号'))
                         },
                     },]}
-                name='username'
+                name='mobile'
             >
-                <Input  value={phone} onChange={(vals) => setPhone(vals)}
+                <Input value={phone} onChange={(vals) => setPhone(vals)}
                        placeholder='请输入手机号'/>
             </Form.Item>
             <Form.Item
@@ -86,7 +135,7 @@ export default function Message() {
                         },
                     },
                 ]}
-                name='password'
+                name='code'
 
             >
                 <Input placeholder='短信验证码'
