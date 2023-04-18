@@ -1,0 +1,15 @@
+// src/styles/layout.module.scss
+.page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  .container {
+    width: 100vw;
+    height: calc(100vh - 14.93vw);
+    overflow-y: auto;
+  }
+  .footer {
+    width: 100vw;
+    height: 14.93vw;
+  }
+}

@@ -1,0 +1,33 @@
+// src/styles/tabbar.module.scss
+@use "color";
+
+.bar {
+  width: 100vw;
+  height: 14.93vw;
+  display: flex;
+  justify-content: space-between;
+  //padding: 0 4vw;
+  li {
+    width: 20vw;
+    height: 14.93vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 6.57vw;
+      height: 6.57vw;
+      object-fit: contain;
+    }
+    span {
+      font-size: 3.2vw;
+      color: color.$text_3;
+      margin-top: 1.33vw;
+    }
+    &.active {
+      span {
+        color: color.$main;
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import {Auth} from "../../types/auth";
 import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {AppState} from "@store/index";
-
+import {persistReducer} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 export interface AuthState {
     auth: Partial<Auth>
@@ -37,3 +38,8 @@ export const authSlice = createSlice<
 export const {saveAuth, clearAuth} = authSlice.actions
 // 导出用于获取用户资料的状态选择器
 export const selectAuth = (state: AppState) => state.auth.auth;
+// 持久化
+export const authReducer = persistReducer({
+        key: authSlice.name, storage
+    },
+    authSlice.reducer)
