@@ -2,10 +2,14 @@
 import styles from "@styles/login.module.scss";
 import useToggle from "@hooks/useToggle";
 import {Button, Input, Form, Checkbox, Toast} from 'react-vant'
-import {ChangeEvent, useState} from "react";
-import { EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
+import {useState} from "react";
+import {EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
 import NProgress from "nprogress";
 import delayTwoSeconds from "@hooks/delaytwoTime";
+import {useLoginByPasswordMutation} from "@store/apiSlice/authApiSlice";
+import {useTypedDispatch} from "@store/index";
+import {useNavigate} from "react-router-dom";
+import {saveAuth} from "@store/slices/authSlice";
 
 export default function Password() {
     // 控制密码是否显示
@@ -13,14 +17,41 @@ export default function Password() {
     // 复选框
     const [checked, setChecked] = useState(false)
     const [form] = Form.useForm()
-
-    const onFinish = async (values: ChangeEvent<HTMLFormElement>) => {
+    // 用于实现用户登录的方法
+    const [loginByPassword] = useLoginByPasswordMutation()
+    // 获取 dispatch 方法
+    const dispatch = useTypedDispatch()
+    // 获取路由对象
+    const navigate = useNavigate()
+    const onFinish = (values: { password: string; mobile: string }) => {
+        // 如果没有选择同意协议退出
         if (!checked) {
             Toast.info('请勾选协议')
             return
         }
+        const {mobile, password} = values
+        // 用户登录
         NProgress.start()
-        await delayTwoSeconds();
+
+        loginByPassword({mobile, password})
+            .unwrap()
+            .then((response) => {
+                // 请求失败
+                if (typeof response.success !== "undefined" && response.success === false) {
+                    // 消息提示
+                    return Toast.info(response.message);
+                }
+                // 请求成功, 保存用户登录凭据
+                dispatch(saveAuth(response.data));
+                // 消息提示
+                Toast({
+                    message: "登录成功",
+                    onClose: () => {
+                        // 跳转到个人中心页面
+                        navigate("/personal");
+                    },
+                });
+            });
         NProgress.done()
     }
 
@@ -55,9 +86,9 @@ export default function Password() {
                             return Promise.reject(new Error('请填写正确的用户名'))
                         },
                     },]}
-                name='username'
+                name='mobile'
             >
-                <Input name={'username'} autoComplete={'chrome-off'} placeholder='请输入用户名'/>
+                <Input name={'mobile'} autoComplete={'chrome-off'} placeholder='请输入用户名'/>
             </Form.Item>
             <Form.Item
                 rules={[{required: false, message: '请填写密码'},
@@ -70,7 +101,7 @@ export default function Password() {
                         },
                     },
                 ]}
-
+                initialValue={'abc12345'}
                 name='password'
             >
                 {/* autoComplete="current-password"*/}

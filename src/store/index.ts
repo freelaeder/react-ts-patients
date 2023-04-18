@@ -1,12 +1,16 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {authSlice} from "@store/slices/authSlice";
+import {apiSlice} from "@store/apiSlice";
 
 const store = configureStore({
     reducer: {
         [authSlice.name]: authSlice.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
     devTools: process.env.NODE_ENV !== "production",
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat([apiSlice.middleware]),
 })
 
 // 获取dispatch方法的类型
