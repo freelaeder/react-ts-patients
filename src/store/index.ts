@@ -1,8 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {authSlice} from "@store/slices/authSlice";
 
 const store = configureStore({
-    reducer: () => ({test: 'test'}),
+    reducer: {
+        [authSlice.name]: authSlice.reducer,
+    },
     devTools: process.env.NODE_ENV !== "production",
 })
 

@@ -1,7 +1,7 @@
 // 短信登录组件
 import styles from "@styles/login.module.scss";
 import {Button, Checkbox, Form, Input, Toast} from 'react-vant';
-import React, {ChangeEvent, useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect,  useState} from "react";
 import useToggle from "@hooks/useToggle";
 import useCountdown from "@hooks/delayTime";
 

@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState} from "react";
 import {Progress} from "react-vant";
-import useProgress from "@hooks/useFakeProgress";
 
 interface FakeProgressProps {
     time?: number;
@@ -10,7 +9,6 @@ interface FakeProgressProps {
 export default function FakeProgress({time = 2000, ...props}: FakeProgressProps) {
     const [percent, setPercent] = useState(0);
     const timer = useRef<NodeJS.Timeout>();
-    const [count, end] = useProgress()
 
     const start = () => {
         clearInterval(timer.current!);

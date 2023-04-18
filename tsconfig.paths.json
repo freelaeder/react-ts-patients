@@ -10,7 +10,7 @@
       "@images/*": ["./src/images/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@icons/*": ["./src/icons/*"],
-      "@enums/*": ["./src/enums/*"]
+      "@enums/*": ["./src/enums/*"],
     }
   }
 }

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import FakeMockProgress from "@shared/progress/fake-mock";
 import {LeftOutline} from "antd-mobile-icons";
 import styles from "@styles/header.module.scss";
 import {useLocation, useNavigate} from "react-router-dom";
-import NProgress from "nprogress";
 
 
 interface Props {

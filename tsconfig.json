@@ -23,5 +23,9 @@
   "include": [
     "src"
   ],
-  "extends": "./tsconfig.paths.json"
+  "extends": "./tsconfig.paths.json",
+  "typeRoots": [
+    "./node_modules/@types",
+    "./src/types"
+  ]
 }

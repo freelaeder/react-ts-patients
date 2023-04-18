@@ -3,7 +3,7 @@ import styles from "@styles/login.module.scss";
 import useToggle from "@hooks/useToggle";
 import {Button, Input, Form, Checkbox, Toast} from 'react-vant'
 import {ChangeEvent, useState} from "react";
-import {EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
+import { EyeInvisibleOutline, EyeOutline} from "antd-mobile-icons";
 import NProgress from "nprogress";
 import delayTwoSeconds from "@hooks/delaytwoTime";
 
@@ -17,6 +17,7 @@ export default function Password() {
     const onFinish = async (values: ChangeEvent<HTMLFormElement>) => {
         if (!checked) {
             Toast.info('请勾选协议')
+            return
         }
         NProgress.start()
         await delayTwoSeconds();
@@ -56,7 +57,7 @@ export default function Password() {
                     },]}
                 name='username'
             >
-                <Input autoComplete={'on'} placeholder='请输入用户名'/>
+                <Input name={'username'} autoComplete={'chrome-off'} placeholder='请输入用户名'/>
             </Form.Item>
             <Form.Item
                 rules={[{required: false, message: '请填写密码'},
@@ -72,6 +73,7 @@ export default function Password() {
 
                 name='password'
             >
+                {/* autoComplete="current-password"*/}
                 <Input name={'password'} autoComplete="current-password" type={!visible ? 'tel' : 'password'}
                        placeholder='请输入密码'
                        suffix={<div onClick={setVisible}> {!visible ?
