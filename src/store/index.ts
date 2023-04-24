@@ -2,7 +2,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {authReducer, authSlice} from "@store/slices/authSlice";
 import {apiSlice} from "@store/apiSlice";
-import { persistStore } from "redux-persist";
+import {persistStore} from "redux-persist";
+
 const store = configureStore({
     reducer: {
         [authSlice.name]: authReducer,
@@ -10,7 +11,10 @@ const store = configureStore({
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([apiSlice.middleware]),
+        getDefaultMiddleware({
+            // Disable serializer check middleware
+            serializableCheck: false,
+        }).concat([apiSlice.middleware]),
 })
 
 // 获取dispatch方法的类型
@@ -23,5 +27,5 @@ export type AppState = ReturnType<typeof store.getState>
 export const useTypedSelector: TypedUseSelectorHook<AppState> = useSelector
 
 // 持久化对象
-export const persistor =persistStore(store)
+export const persistor = persistStore(store)
 export default store
