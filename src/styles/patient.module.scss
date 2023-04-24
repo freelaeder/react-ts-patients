@@ -1,0 +1,103 @@
+// src/styles/patient.module.scss
+@use "color";
+@use "hairline";
+
+.page {
+  padding: 0 4vw;
+  .message {
+    font-size: 3.47vw;
+    color: color.$text_3;
+    padding: 4vw 0;
+  }
+  .item {
+    margin-bottom: 2.67vw;
+    height: 24vw;
+    width: 100%;
+    background: #fafafa;
+    padding: 2.33vw 0vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1.07vw;
+    overflow: hidden;
+    position: relative;
+    .info {
+      //flex: 1;
+      padding: 0vw 3vw;
+      .i_1 {
+        margin-bottom: 2vw;
+        font-size: 3.73vw;
+        .name {
+          font-weight: 600;
+        }
+        .id {
+          margin-left: 5.33vw;
+        }
+        .default {
+          background: color.$main;
+          padding: 0.4vw 1.3vw;
+          color: #fFF;
+          font-size: 2.4vw;
+          margin-left: 2.67vw;
+          border-radius: 0.53vw;
+        }
+      }
+      .i_2 {
+        font-size: 3.73vw;
+        color: color.$text_3;
+        .sex {
+        }
+        .age {
+          margin-left: 5.33vw;
+        }
+      }
+    }
+    .edit {
+      width: 7.3vw;
+      margin-right: 4vw;
+      img {
+        display: block;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+    &.active {
+      background: #2CB5A511;
+      @include hairline.hairline(color.$main, 1.07vw);
+    }
+  }
+  .add {
+    width: 100%;
+    height: 20.53vw;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+      width: 5.33vw;
+      height: 5.33vw;
+    }
+    span {
+      font-size: 3.2vw;
+      color: color.$main;
+      margin-top: 0.8vw;
+    }
+  }
+  .next {
+    width: 100%;
+    height: 11.73vw;
+    border-radius: 44px;
+    background: color.$main;
+    color: #fff;
+    font-size: 4.27vw;
+    line-height: 11.73vw;
+    text-align: center;
+    margin-top: 11vw;
+    margin-bottom: 7vw;
+    &.disabled {
+      background: #fafafa;
+      color: #d9dbde;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+// src/styles/editPatient.module.scss
+@use "hairline";
+@use "color";
+
+.edit {
+  padding: 0 4vw;
+  .form {
+  }
+  .formItem {
+    display: flex;
+    position: relative;
+    height: 14.93vw;
+    align-items: center;
+    @include hairline.hairline-bottom;
+    label {
+      width: 26.67vw;
+      font-size: 4.27vw;
+      color: color.$text_2;
+    }
+    .item {
+      flex: 1;
+      height: 14.93vw;
+      display: flex;
+      align-items: center;
+      input[type="text"] {
+        width: 100%;
+        height: 100%;
+        font-size: 4.27vw;
+        &::placeholder {
+          color: color.$tip;
+        }
+      }
+      .sex {
+        display: block;
+        width: 19.73vw;
+        height: 8.53vw;
+        background: color.$bg;
+        font-size: 3.73vw;
+        text-align: center;
+        line-height: 8.53vw;
+        margin-right: 3.2vw;
+        border-radius: 0.53vw;
+        position: relative;
+        &.active {
+          background: #eaf8f6;
+          border: 1px solid color.$main;
+        }
+      }
+      .default {
+        width: 4.8vw;
+        height: 4.8vw;
+      }
+    }
+  }
+  .remove {
+    width: 100%;
+    height: 9.73vw;
+    background: color.$main;
+    color: #fff;
+    font-size: 3.9vw;
+    border-radius: 5.87vw;
+    margin-top: 10.67vw;
+  }
+}

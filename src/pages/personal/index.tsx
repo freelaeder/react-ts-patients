@@ -7,6 +7,7 @@ import {Swiper} from "react-vant";
 import classNames from "classnames";
 import useLoading from "@hooks/useLoading";
 import Logout from "@pages/personal/widgets/logout";
+import {useNavigate} from "react-router-dom";
 
 export default function Personal() {
     // 发送请求获取登录用户个人资料
@@ -14,6 +15,7 @@ export default function Personal() {
     // 加载提示
     useLoading(isLoading, isSuccess);
 
+    const navigate = useNavigate()
     return (
         <>
             <Helmet>
@@ -200,7 +202,7 @@ export default function Personal() {
                                     <span>我的处方</span>
                                     <RightOutline/>
                                 </li>
-                                <li>
+                                <li onClick={() => navigate('/patient')}>
                                     <div className={styles.imgContainer}>
                                         <img
                                             src={require("@icons/user/tool-03.svg").default}
@@ -252,7 +254,7 @@ export default function Personal() {
                                 </li>
                             </ul>
                         </div>
-                        <Logout />
+                        <Logout/>
                     </div>
                 )
             }

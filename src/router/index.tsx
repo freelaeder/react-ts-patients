@@ -7,6 +7,7 @@ import Layout from "@shared/layout";
 import Notice from "@pages/notice";
 import Article from "@pages/article";
 import AuthRoute from "@router/authRoute";
+import Patient from "@pages/patient";
 
 
 export const router = createBrowserRouter([
@@ -23,6 +24,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'article', element: <Article/>
+            },
+            {
+                path:'patient',element:<Patient />
             }
 
         ]
