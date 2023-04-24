@@ -5,7 +5,7 @@ import {useEffect, useRef} from "react";
 export default function useLoading(isLoading:boolean,isSuccess:boolean){
     // 用于保存加载中提示的引用对象
     const toastHandler = useRef<ToastReturnType>()
-    // 判断是否正在获取用户个人资料 ok
+    // 判断是否正在获取用户个人资料
     useEffect(() => {
         if (isLoading) {
             toastHandler.current = Toast({

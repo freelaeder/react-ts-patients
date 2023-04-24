@@ -6,6 +6,7 @@ import {useRequestProfileQuery} from "@store/apiSlice/profileApiSlice";
 import {Swiper} from "react-vant";
 import classNames from "classnames";
 import useLoading from "@hooks/useLoading";
+import Logout from "@pages/personal/widgets/logout";
 
 export default function Personal() {
     // 发送请求获取登录用户个人资料
@@ -251,7 +252,7 @@ export default function Personal() {
                                 </li>
                             </ul>
                         </div>
-                        <div className={styles.logout}>退出登录</div>
+                        <Logout />
                     </div>
                 )
             }
