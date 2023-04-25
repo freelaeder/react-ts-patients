@@ -9,6 +9,7 @@ import {useForm, SubmitHandler} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Toast} from "react-vant";
 import {useAddPatientMutation, useUpdatePatientMutation} from "@store/apiSlice/patientApiSlice";
+import RemovePatient from "@pages/patient/widgets/remove";
 
 interface Props {
     // 控制弹框显示和隐藏
@@ -204,7 +205,7 @@ export default function EditPatient({setVisible, patient}: Props) {
                 </div>
             </form>
             {
-                patient && <button className={styles.remove}>删除患者</button>
+                patient && <RemovePatient name={patient.name} id={patient.id} setVisible={setVisible} />
             }
 
         </div>
