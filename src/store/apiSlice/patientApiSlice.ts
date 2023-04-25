@@ -1,5 +1,6 @@
 import {apiSlice} from "@store/apiSlice/index";
-import {PatientResponse} from "../../types/patient";
+import {Patient, PatientResponse} from "../../types/patient";
+import * as url from "url";
 
 
 export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patients"]}).injectEndpoints({
@@ -11,6 +12,18 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
             }),
             // 添加状态
             providesTags: ["patients"],
+        }),
+        // 添加患者
+        addPatient: build.mutation<HealthResponse<{
+            id: string
+        }>, Pick<Patient, 'name' | 'idCard' | 'defaultFlag' | 'gender'>>({
+            query: (body) => ({
+                url:'/patient/add',
+                method:'post',
+                body
+            }),
+            // 使状态无线
+            invalidatesTags:["patients"]
         })
 
 
@@ -19,4 +32,4 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
 
 // 导出
 
-export const {useRequestPatientsQuery} = patientApiSlice
+export const {useRequestPatientsQuery,useAddPatientMutation} = patientApiSlice
