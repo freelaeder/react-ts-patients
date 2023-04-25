@@ -18,12 +18,23 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
             id: string
         }>, Pick<Patient, 'name' | 'idCard' | 'defaultFlag' | 'gender'>>({
             query: (body) => ({
-                url:'/patient/add',
-                method:'post',
+                url: '/patient/add',
+                method: 'post',
                 body
             }),
-            // 使状态无线
-            invalidatesTags:["patients"]
+            // 使状态无效
+            invalidatesTags: ["patients"]
+        }),
+        // 更新患者信息
+        updatePatient: build.mutation<HealthResponse<{ id: string }>, {
+            id: string
+        } & Pick<Patient, 'name' | 'idCard' | 'defaultFlag' | 'gender'>>({
+            query: (body) => ({
+                url: '/patient/update',
+                method: 'put',
+                body
+            }),
+            invalidatesTags: ["patients"]
         })
 
 
@@ -32,4 +43,4 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
 
 // 导出
 
-export const {useRequestPatientsQuery,useAddPatientMutation} = patientApiSlice
+export const {useRequestPatientsQuery, useAddPatientMutation, useUpdatePatientMutation} = patientApiSlice

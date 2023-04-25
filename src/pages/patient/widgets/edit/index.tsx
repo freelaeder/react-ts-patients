@@ -8,7 +8,7 @@ import {z} from "zod";
 import {useForm, SubmitHandler} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Toast} from "react-vant";
-import {useAddPatientMutation} from "@store/apiSlice/patientApiSlice";
+import {useAddPatientMutation, useUpdatePatientMutation} from "@store/apiSlice/patientApiSlice";
 
 interface Props {
     // 控制弹框显示和隐藏
@@ -79,16 +79,19 @@ export default function EditPatient({setVisible, patient}: Props) {
     });
     // 用于添加患者
     const [addPatient] = useAddPatientMutation()
+    // 用于编辑患者信息
+    const [modifyPatient] = useUpdatePatientMutation()
 
     // 表单提交
     const onSubmit: SubmitHandler<FormState> = (formState) => {
-        addPatient(formState)
-            .unwrap()
-            .then(res => {
+        // 如果当前是修改操作
+        if (typeof patient !== 'undefined') {
+            // 发送请求 编辑患者信息
+            modifyPatient(Object.assign(formState, {id: patient.id})).unwrap().then(res => {
                 console.log(res)
                 if (res.code === 10000 && res.message === '请求成功') {
                     Toast({
-                        message: '患者添加成功'
+                        message: '患者更新成功'
                     })
                     // 隐藏表单
                     setVisible(false)
@@ -100,6 +103,27 @@ export default function EditPatient({setVisible, patient}: Props) {
                     })
                 }
             })
+        } else {
+            // 发送请求 添加患者信息
+            addPatient(formState)
+                .unwrap()
+                .then(res => {
+                    console.log(res)
+                    if (res.code === 10000 && res.message === '请求成功') {
+                        Toast({
+                            message: '患者添加成功'
+                        })
+                        // 隐藏表单
+                        setVisible(false)
+                        // 重置表单
+                        reset(defaultValues)
+                    } else {
+                        Toast({
+                            message: res.message
+                        })
+                    }
+                })
+        }
     };
     // 实时获取性别值
     const gender = watch("gender");
@@ -116,6 +140,17 @@ export default function EditPatient({setVisible, patient}: Props) {
             })
         }
     }, [errors.name]);
+    // 监测是添加还是修改
+    useEffect(() => {
+        // 如果是修改
+        if(typeof patient !== 'undefined'){
+            // 使用现有患者信息填充表单
+            reset(patient)
+        }else {
+            // 否则当前是添加操作, 使用初始值填充表单
+            reset(defaultValues)
+        }
+    },[patient,reset])
 
     // 检测身份证字段格式是否有错误
     useEffect(() => {
@@ -168,7 +203,10 @@ export default function EditPatient({setVisible, patient}: Props) {
                     </div>
                 </div>
             </form>
-            <button className={styles.remove}>删除患者</button>
+            {
+                patient && <button className={styles.remove}>删除患者</button>
+            }
+
         </div>
     );
 }
