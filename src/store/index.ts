@@ -3,11 +3,13 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {authReducer, authSlice} from "@store/slices/authSlice";
 import {apiSlice} from "@store/apiSlice";
 import {persistStore} from "redux-persist";
+import {articleSlice} from "@store/slices/articleSlice";
 
 const store = configureStore({
     reducer: {
         [authSlice.name]: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
+        [articleSlice.name]:articleSlice.reducer
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>

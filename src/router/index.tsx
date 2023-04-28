@@ -25,13 +25,14 @@ export const router = createBrowserRouter([
             {
                 path: 'article', element: <Article/>
             },
-            {
-                path:'patient',element:<Patient />
-            }
+
 
         ]
     },
     {path: "/login", element: <Login/>},
+    {
+        path: 'patient', element: <Patient/>
+    }
 
 
 ]);
