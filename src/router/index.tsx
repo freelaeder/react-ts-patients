@@ -1,13 +1,16 @@
 /* eslint-disable react/no-children-prop */
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Home from "@pages/home";
-import Login from "@pages/login";
-import Personal from "@pages/personal";
-import Layout from "@shared/layout";
-import Notice from "@pages/notice";
-import Article from "@pages/article";
+import {lazy} from "react";
 import AuthRoute from "@router/authRoute";
-import Patient from "@pages/patient";
+import loadable from "@shared/loadable";
+
+const Home = loadable(lazy(() => import("@pages/home")));
+const Login = loadable(lazy(() => import("@pages/login")));
+const Personal = loadable(lazy(() => import("@pages/personal")));
+const Layout = loadable(lazy(() => import("@shared/layout")));
+const Notice = loadable(lazy(() => import("@pages/notice")));
+const Article = loadable(lazy(() => import("@pages/article")));
+const Patient = loadable(lazy(() => import("@pages/patient")));
 
 
 export const router = createBrowserRouter([
