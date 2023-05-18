@@ -2,16 +2,23 @@ import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {authReducer, authSlice} from "@store/slices/authSlice";
 import {apiSlice} from "@store/apiSlice";
-import {persistStore} from "redux-persist";
+import {persistReducer, persistStore} from "redux-persist";
 import {articleSlice} from "@store/slices/articleSlice";
 import {doctorSlice} from "@store/slices/doctorSlice";
+import {consultSlice} from "@store/slices/consultSlice";
+import storage from "redux-persist/lib/storage";
+// 持久化问诊信息
+const consultPersisted = persistReducer({
+    key: consultSlice.name, storage
+}, consultSlice.reducer)
 
 const store = configureStore({
     reducer: {
         [authSlice.name]: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
-        [articleSlice.name]:articleSlice.reducer,
-        [doctorSlice.name]:doctorSlice.reducer
+        [articleSlice.name]: articleSlice.reducer,
+        [doctorSlice.name]: doctorSlice.reducer,
+        [consultSlice.name]: consultPersisted
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>

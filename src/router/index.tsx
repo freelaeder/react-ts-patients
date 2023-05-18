@@ -1,9 +1,12 @@
 /* eslint-disable react/no-children-prop */
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {lazy} from "react";
+import React, {lazy} from "react";
 import AuthRoute from "@router/authRoute";
 import loadable from "@shared/loadable";
 import Fast from "@pages/fast";
+import Department from "@pages/department";
+import Illness from "@pages/illness";
+import {Loading} from "react-vant";
 
 const Home = loadable(lazy(() => import("@pages/home")));
 const Login = loadable(lazy(() => import("@pages/login")));
@@ -14,10 +17,17 @@ const Article = loadable(lazy(() => import("@pages/article")));
 const Patient = loadable(lazy(() => import("@pages/patient")));
 
 
+const style: React.CSSProperties = {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+};
 export const router = createBrowserRouter([
     {
         path: '',
         element: <AuthRoute children={<Layout/>}/>,
+        errorElement:<Loading style={style} type="ball"/>,
         children: [
             {path: "", element: <Home/>},
             {
@@ -31,6 +41,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:'fast',element:<Fast />
+            },
+            {
+                path:'department',element:<Department />
+            },
+            {
+                path:'illness',element:<Illness />
             }
 
 

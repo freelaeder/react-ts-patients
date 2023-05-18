@@ -1,0 +1,175 @@
+// src/styles/illness.module.scss
+@use "color";
+@use "hairline";
+
+.page {
+  padding: 2.67vw 4vw 0;
+  position: relative;
+  @include hairline.hairline-top;
+  .doctor {
+    display: flex;
+    padding-bottom: 3.2vw;
+    position: relative;
+    @include hairline.hairline-bottom;
+    .avatar {
+      margin-right: 2.13vw;
+      width: 17.33vw;
+      height: 17.33vw;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 50%;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+    }
+    .content {
+      .name {
+        color: color.$text_1;
+        font-weight: 500;
+        font-size: 4.27vw;
+      }
+      .talk {
+        background: #fafafa;
+        width: 100%;
+        padding: 2.67vw;
+        color: color.$text_3;
+        font-size: 3.47vw;
+        line-height: 5.33vw;
+        margin-top: 1.33vw;
+      }
+      .tip {
+        display: flex;
+        align-items: center;
+        margin-top: 2.67vw;
+        img {
+          width: 3.33vw;
+          height: 3.73vw;
+          display: block;
+        }
+        span {
+          color: color.$text_3;
+          font-size: 2.67vw;
+          margin-left: 0.53vw;
+        }
+      }
+    }
+  }
+  .textarea {
+    margin-top: 6.67vw;
+    width: 100%;
+    color: color.$text_2;
+    font-size: 4vw;
+    line-height: 6.4vw;
+    min-height: 26.67vw;
+    &::placeholder {
+      color: color.$dark;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .description {
+    margin-top: 3.47vw;
+    .name {
+      color: color.$text_2;
+      font-size: 3.73vw;
+      margin-bottom: 4vw;
+    }
+    .options {
+      display: flex;
+      li {
+        border-radius: 1.07vw;
+        background: #fafafa;
+        color: color.$text_2;
+        font-size: 3.73vw;
+        padding: 2.4vw 3.73vw;
+        margin-right: 2.67vw;
+        border: 1px solid transparent;
+        &.active {
+          background: #2cb5a519;
+          color: #2cb5a5;
+          border: 1px solid #2cb5a5;
+        }
+      }
+    }
+  }
+  .upload {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 6.67vw;
+    .uploader {
+      width: 21.33vw;
+      height: 21.33vw;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      input[type="file"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+      }
+      svg {
+        font-size: 8vw;
+        color: color.$tag;
+      }
+      span {
+        color: color.$tag;
+        font-size: 2.67vw;
+        margin-top: 0.53vw;
+      }
+    }
+    .tips {
+      margin-left: 3.2vw;
+      color: #979797;
+      font-size: 2.93vw;
+    }
+    .imgContainer {
+      width: 21.33vw;
+      height: 21.33vw;
+      background: #fafafa;
+      margin-right: 2vw;
+      margin-bottom: 2vw;
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+      .close {
+        position: absolute;
+        right: -2vw;
+        top: -2vw;
+        color: color.$main;
+        font-weight: bold;
+        font-size: 4.8vw;
+      }
+    }
+  }
+  .next {
+    width: 100%;
+    height: 11.73vw;
+    border-radius: 44px;
+    background: color.$main;
+    color: #fff;
+    font-size: 4.27vw;
+    line-height: 11.73vw;
+    text-align: center;
+    margin-top: 10.67vw;
+    &.disabled {
+      background: #fafafa;
+      color: #d9dbde;
+    }
+  }
+}

@@ -13,7 +13,7 @@ export default function Fast() {
             <Header title="极速问诊" link="问诊记录" />
             <div className={styles.page}>
                 <div className={styles.picture}>
-                    {/*<img src={require("@images/fast.png")} alt="" />*/}
+                    <img src={'https://cp.itheima.net/assets/consult-fast.d1432ec9.png'} alt="" />
                 </div>
                 <div className={styles.tip}>
                     <span>20s</span>快速匹配专业医生
