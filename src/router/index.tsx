@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
     {
         path: '',
         element: <AuthRoute children={<Layout/>}/>,
-        errorElement:<Loading style={style} type="ball"/>,
+        errorElement: <Loading style={style} type="ball"/>,
         children: [
             {path: "", element: <Home/>},
             {
@@ -38,23 +38,22 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'article', element: <Article/>
-            },
-            {
-                path:'fast',element:<Fast />
-            },
-            {
-                path:'department',element:<Department />
-            },
-            {
-                path:'illness',element:<Illness />
             }
-
 
         ]
     },
     {path: "/login", element: <Login/>},
     {
         path: 'patient', element: <Patient/>
+    },
+    {
+        path: 'fast', element: <Fast/>
+    },
+    {
+        path: 'department', element: <Department/>
+    },
+    {
+        path: 'illness', element: <Illness/>
     }
 
 
