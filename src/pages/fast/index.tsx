@@ -3,8 +3,13 @@ import styles from "@styles/fast.module.scss";
 import { Helmet } from "react-helmet";
 import Header from "@shared/header";
 import { RightOutline } from "antd-mobile-icons";
+import {useNavigate} from "react-router-dom";
+import {useTypedDispatch} from "@store/index";
+import {saveConsult} from "@store/slices/consultSlice";
 
 export default function Fast() {
+    const navigate = useNavigate()
+    const dispatch = useTypedDispatch()
     return (
         <>
             <Helmet>
@@ -19,7 +24,10 @@ export default function Fast() {
                     <span>20s</span>快速匹配专业医生
                 </div>
                 <div className={styles.options}>
-                    <div className={styles.item}>
+                    <div onClick={() => {
+                        navigate('/department');
+                        dispatch(saveConsult({illnessType:1}))
+                    } } className={styles.item}>
                         <div className={styles.left}>
                             <div className={styles.imgContainer}>
                                 <img
@@ -34,7 +42,10 @@ export default function Fast() {
                         </div>
                         <RightOutline className={styles.gt} />
                     </div>
-                    <div className={styles.item}>
+                    <div onClick={() => {
+                        navigate('/department');
+                        dispatch(saveConsult({illnessType:0}))
+                    } } className={styles.item}>
                         <div className={styles.left}>
                             <div className={styles.imgContainer}>
                                 <img
@@ -43,8 +54,8 @@ export default function Fast() {
                                 />
                             </div>
                             <div className={styles.title}>
-                                <h4>三甲图文问诊</h4>
-                                <h5>三甲主治及以上级别医生</h5>
+                                <h4>普通图文问诊</h4>
+                                <h5>二甲主治及以上级别医生</h5>
                             </div>
                         </div>
                         <RightOutline className={styles.gt} />
