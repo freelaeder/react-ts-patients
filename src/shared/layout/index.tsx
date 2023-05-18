@@ -4,11 +4,9 @@ import {Outlet} from "react-router-dom";
 import Tabbar from "@shared/tabbar";
 import React, {useState} from "react";
 
-
 export interface OutletContextType {
     scrollTop: number
 }
-
 export default function Layout() {
     // 用于记录滚动位置
     const [scrollTop, setScrollTop] = useState(0)

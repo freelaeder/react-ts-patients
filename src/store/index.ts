@@ -4,12 +4,14 @@ import {authReducer, authSlice} from "@store/slices/authSlice";
 import {apiSlice} from "@store/apiSlice";
 import {persistStore} from "redux-persist";
 import {articleSlice} from "@store/slices/articleSlice";
+import {doctorSlice} from "@store/slices/doctorSlice";
 
 const store = configureStore({
     reducer: {
         [authSlice.name]: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
-        [articleSlice.name]:articleSlice.reducer
+        [articleSlice.name]:articleSlice.reducer,
+        [doctorSlice.name]:doctorSlice.reducer
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>

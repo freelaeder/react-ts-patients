@@ -1,4 +1,5 @@
 import {apiSlice} from "@store/apiSlice/index";
+import {FocusType} from "../../types/profile";
 
 
 export const articleApiSlice = apiSlice.injectEndpoints({
@@ -9,10 +10,21 @@ export const articleApiSlice = apiSlice.injectEndpoints({
                 url: '/patient/home/knowledge',
                 params
             })
+        }),
+        // 关注、取消关注
+        focus: build.mutation<HealthResponse<{id:string}>, { type: FocusType; id: string }>({
+            query: (body) => ({
+                url: '/like',
+                method: "post",
+                body
+            })
         })
     })
 
 })
 
 
-export const {useLazyRequestArticlesQuery} = articleApiSlice
+export const {
+    useLazyRequestArticlesQuery,
+    useFocusMutation
+} = articleApiSlice

@@ -7,7 +7,7 @@ interface HealthResponse<T> {
     success?: false;
 }
 
-// 通用的分页查询参数
+// // 通用的分页查询参数
 interface PageParams {
     // 当前页码
     current: number;

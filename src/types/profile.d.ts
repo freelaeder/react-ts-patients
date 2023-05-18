@@ -57,3 +57,6 @@ export interface ConsultationInfo {
 
 // 个人信息接口返回值类型
 export type ProfileResponse = HealthResponse<Profile>;
+
+// 关注的类型, 医生|文章|百科话题|疾病
+type FocusType = "doc" | "knowledge" | "topic" | "disease";

@@ -10,6 +10,7 @@ export default function useCountdown(initialTime: number):[number, () => void] {
         }, 1000);
 
         if (time === 0) {
+            console.log(time)
             clearInterval(timer);
         }
 

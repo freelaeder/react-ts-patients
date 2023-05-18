@@ -7,9 +7,9 @@ import {useLazyRequestArticlesQuery} from "@store/apiSlice/articleApiSlice";
 import {List} from "react-vant";
 import {useTypedDispatch, useTypedSelector} from "@store/index";
 import {saveArticles, selectArticles} from "@store/slices/articleSlice";
-import {date} from "zod";
 import {useOutletContext} from "react-router-dom";
 import {OutletContextType} from "@shared/layout";
+import Doctors from "@pages/home/widgets/doctors";
 
 export default function Article() {
     const [type, setType] = useState<ArticleType>('recommend')
@@ -37,7 +37,6 @@ export default function Article() {
         // 设置吸顶, 否则取消吸顶
         setFixed(scrollTop > offsetTop.current);
     },[scrollTop])
-    console.log(offsetTop)
     // 用于加载文章列表
     const loadMore = () => {
         // 发送请求获取文章列表
@@ -93,104 +92,7 @@ export default function Article() {
                     setType('food')
                 }} className={classNames({[styles.active]: type === 'food'})}>饮食</span>
             </div>
-            <div className={styles.focus}>
-                <div className={styles.top}>
-                    <h4>推荐关注</h4>
-                    <a href="#">查看更多 &gt;</a>
-                </div>
-                <div className={styles.container}>
-                    <div className={styles.inner}>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src="https://img0.baidu.com/it/u=2858914388,963166811&fm=253"
-                                alt=""
-                                className={styles.avatar}
-                            />
-                            <span className={styles.doctor}>王医生</span>
-                            <span className={styles.hospital}>积水潭医院 内分泌科</span>
-                            <span className={styles.job}>主任医师</span>
-                            <button className={styles.focus_btn}>+ 关注</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Doctors />
             <div className={styles.article}>
                 <List finished={!hasMore} onLoad={loadMore}>
                     {articles.map((article) => (
