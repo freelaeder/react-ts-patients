@@ -1,4 +1,5 @@
 import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
+import {AppState} from "@store/index";
 
 
 export interface ConsultState {
@@ -29,6 +30,9 @@ export const consultSlice = createSlice<ConsultState, {
         }
     }
 })
+
+// 获取问诊信息
+export const selectConsult = (state: AppState) => state.consult.consult;
 
 
 // 导出操作方法
