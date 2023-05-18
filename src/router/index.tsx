@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {lazy} from "react";
 import AuthRoute from "@router/authRoute";
 import loadable from "@shared/loadable";
+import Fast from "@pages/fast";
 
 const Home = loadable(lazy(() => import("@pages/home")));
 const Login = loadable(lazy(() => import("@pages/login")));
@@ -28,6 +29,9 @@ export const router = createBrowserRouter([
             {
                 path: 'article', element: <Article/>
             },
+            {
+                path:'fast',element:<Fast />
+            }
 
 
         ]

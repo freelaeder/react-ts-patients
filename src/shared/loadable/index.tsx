@@ -3,7 +3,7 @@ import React from "react";
 import {Loading} from "react-vant";
 
 
-const loadable = (
+const Loadable = (
     Component: React.LazyExoticComponent<
         (props: any) => React.ReactElement | null
     >
@@ -18,5 +18,6 @@ const loadable = (
     };
 }
 
+Loadable.displayName = 'MyComponent';
 
-export default loadable
+export default Loadable

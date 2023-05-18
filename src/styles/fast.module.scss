@@ -1,0 +1,75 @@
+// src/styles/fast.module.scss
+@use "color";
+@use "hairline";
+
+.page {
+  position: relative;
+  @include hairline.hairline-top;
+  overflow: hidden;
+  .picture {
+    width: 64vw;
+    height: 54.93vw;
+    margin: 8vw auto 0 auto;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .tip {
+    text-align: center;
+    color: color.$text_2;
+    font-weight: 500;
+    font-size: 4.27vw;
+    margin-top: 4.8vw;
+    span {
+      color: #16c2a3;
+      padding-right: 1.33vw;
+    }
+  }
+  .options {
+    margin-top: 8vw;
+    padding: 0 4vw;
+    .item {
+      position: relative;
+      padding: 5.07vw 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include hairline.hairline;
+      .left {
+        display: flex;
+        align-items: center;
+        .imgContainer {
+          width: 10.67vw;
+          height: 10.67vw;
+          overflow: hidden;
+          margin-right: 3.6vw;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+          }
+        }
+        .title {
+          h4 {
+            color: color.$text_2;
+            font-weight: 500;
+            font-size: 4.27vw;
+          }
+          h5 {
+            color: color.$tag;
+            font-size: 3.47vw;
+            font-weight: normal;
+            margin-top: 0.53vw;
+          }
+        }
+      }
+      .gt {
+        font-size: 3.6vw;
+        color: color.$tip;
+      }
+    }
+  }
+}

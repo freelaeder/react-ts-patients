@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import styles from "@styles/home.module.scss";
 import {Swiper} from "react-vant";
 import Article from "@pages/home/widgets/article";
+import {Link} from "react-router-dom";
 
 export default function Home() {
     return (
@@ -24,11 +25,11 @@ export default function Home() {
                         <span className={styles.title}>问医生</span>
                         <span className={styles.sub_title}>按科室查问医生</span>
                     </div>
-                    <div className={styles.item}>
+                    <Link to={'/fast'} className={styles.item}>
                         <img src={require("@icons/home/graphic.svg").default} alt="" />
                         <span className={styles.title}>极速问诊</span>
                         <span className={styles.sub_title}>20s医生极速回复</span>
-                    </div>
+                    </Link>
                     <div className={styles.item}>
                         <img src={require("@icons/home/prescribe.svg").default} alt="" />
                         <span className={styles.title}>开药门诊</span>
