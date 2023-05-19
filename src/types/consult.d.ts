@@ -57,3 +57,24 @@ type Consult = {
 
 // 问诊记录-全部可选
 type PartialConsult = Partial<Consult>;
+
+
+// 问诊订单预支付信息
+type ConsultOrderPreData = {
+    /** 积分抵扣 */
+    pointDeduction: number;
+    /** 优惠券抵扣 */
+    couponDeduction: number;
+    /** 优惠券ID */
+    couponId: string;
+    /** 需付款 */
+    payment: number;
+    /** 实付款 */
+    actualPayment: number;
+}
+//问诊订单预付款接口返回值类型
+type ConsultOrderPreDataResponse = HealthResponse<ConsultOrderPreData>
+
+// 问诊订单预付款传参
+
+type consultOrderPreParams = Pick<Consult, 'type' | 'illnessType'>

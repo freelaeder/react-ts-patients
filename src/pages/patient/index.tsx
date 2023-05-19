@@ -22,9 +22,7 @@ function maskIdNumber(idNumber: string) {
 
     const startIndex = 6; // 需要脱敏的位置（第7位到第10位）
     const endIndex = 14;
-    const maskedNumber = `${idNumber.substr(0, startIndex)}****${idNumber.substr(endIndex)}`;
-
-    return maskedNumber;
+    return `${idNumber.substr(0, startIndex)}****${idNumber.substr(endIndex)}`;
 }
 
 export default function Patient() {
@@ -78,7 +76,7 @@ export default function Patient() {
                 {
                     isSuccess && (
                         data.data.map(item => (
-                            <div onClick={() =>setUid(item.id) } key={item.id} className={classNames(styles.item, {
+                            <div onClick={() => setUid(item.id)} key={item.id} className={classNames(styles.item, {
                                 [styles.active]: item.id === uid
                             })}>
                                 <div className={styles.info}>
@@ -123,10 +121,11 @@ export default function Patient() {
                     <EditPatient patient={patient} setVisible={setVisible}/>
                 </Popup>
                 <div onClick={() => {
-                    dispatch(saveConsult({patientId:uid}));
+                    dispatch(saveConsult({patientId: uid}));
                     navigate('/consultPay')
 
-                } } className={styles.next}>下一步</div>
+                }} className={styles.next}>下一步
+                </div>
             </div>
         </>
     );

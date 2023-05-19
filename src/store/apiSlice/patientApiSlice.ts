@@ -42,6 +42,12 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
                 method: 'delete'
             }),
             invalidatesTags: ['patients']
+        }),
+        // 根据患者 id 获取患者信息
+        requestPatient: build.query<HealthResponse<Patient>, string>({
+            query: (id) => ({
+                url: `/patient/info/${id}`
+            })
         })
 
 
@@ -50,4 +56,8 @@ export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patient
 
 // 导出
 
-export const {useRequestPatientsQuery, useAddPatientMutation, useUpdatePatientMutation,useDeletePatientMutation} = patientApiSlice
+export const {
+    useRequestPatientsQuery, useAddPatientMutation,
+    useUpdatePatientMutation, useDeletePatientMutation,
+    useRequestPatientQuery
+} = patientApiSlice

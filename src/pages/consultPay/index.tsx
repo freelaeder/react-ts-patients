@@ -1,0 +1,100 @@
+import Header from "@shared/header";
+import styles from "@styles/consultPay.module.scss";
+import {useTypedSelector} from "@store/index";
+import {selectConsult} from "@store/slices/consultSlice";
+import {useRequestConsultInfoQuery} from "@store/apiSlice/consultApiSlice";
+import {useRequestPatientQuery} from "@store/apiSlice/patientApiSlice";
+
+// 预支付页面
+export default function ConsultPay() {
+
+
+    // 获取本地的问诊信息
+    const consult = useTypedSelector(selectConsult)
+    // 用于获取问诊订单预付款信息
+    const {data: consultPreData} = useRequestConsultInfoQuery({type: consult.type!, illnessType: consult.illnessType!})
+    //获取患者信息
+    const {data: patientData} = useRequestPatientQuery(consult.patientId!)
+    if (typeof patientData === 'undefined' || typeof consultPreData === 'undefined') return null
+    return (
+        <>
+            <Header title="支付"/>
+            <div className={styles.page}>
+                <div className={styles.top}>图文问诊 49元</div>
+                <div className={styles.doctor}>
+                    <div className={styles.avatar}>
+                        <img src={'https://cp.itheima.net/assets/avatar-doctor.6cf240f4.svg'} alt=""/>
+                    </div>
+                    <div className={styles.title}>
+                        <h4>极速问诊</h4>
+                        <h5>自动分配医生</h5>
+                    </div>
+                </div>
+                <ul className={styles.list}>
+                    <li>
+                        <span>优惠券</span>
+                        <span>-¥{consultPreData.data.couponDeduction}</span>
+                    </li>
+                    <li>
+                        <span>积分抵扣</span>
+                        <span>-¥{consultPreData.data.couponDeduction}</span>
+                    </li>
+                    <li>
+                        <span>实付款</span>
+                        <span>
+              <i>-¥{consultPreData.data.actualPayment}</i>
+            </span>
+                    </li>
+                </ul>
+                <div className={styles.divide}></div>
+                <h6 className={styles.title}>患者资料</h6>
+                <ul className={styles.list}>
+                    <li>
+                        <span>患者信息</span>
+                        <span>{patientData.data.name} | {patientData.data.genderValue} | {patientData.data.age}岁</span>
+                    </li>
+                    <li className={styles.vertical}>
+                        <span>病情描述</span>
+                        <span>{consult.illnessDesc}</span>
+                    </li>
+                </ul>
+                <div className={styles.agree}>
+                    <input type="checkbox" id="agree"/>
+                    <label htmlFor="agree">
+            <span>
+              我已同意<i>支付协议</i>
+            </span>
+                    </label>
+                </div>
+            </div>
+            <div className={styles.summary}>
+                <div className={styles.total}>
+                    <i>合计</i>
+                    <span>¥39.00</span>
+                </div>
+                <button className={styles.pay_button}>立即支付</button>
+            </div>
+            <div className={styles.pay_method}>
+                <div className={styles.title}>选择支付方式</div>
+                <div className={styles.price}>¥ 39</div>
+                <ul className={styles.methods}>
+                    <li>
+                        <label htmlFor="wechat" className={styles.method}>
+                            <img src={require("@icons/consult/wechat.svg").default} alt=""/>
+                            <span>微信支付</span>
+                        </label>
+                        <input type="radio" id="wechat"/>
+                    </li>
+                    <li>
+                        <label htmlFor="alipay" className={styles.method}>
+                            <img src={require("@icons/consult/alipay.svg").default} alt=""/>
+                            <span>支付宝支付</span>
+                        </label>
+                        <input type="radio" id="alipay"/>
+                    </li>
+                </ul>
+                <button className={styles.pay_button}>立即支付</button>
+            </div>
+        </>
+    );
+}

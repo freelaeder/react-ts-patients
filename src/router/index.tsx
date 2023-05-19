@@ -7,6 +7,8 @@ import Fast from "@pages/fast";
 import Department from "@pages/department";
 import Illness from "@pages/illness";
 import {Loading} from "react-vant";
+import ConsultPay from "@pages/consultPay";
+import ConsultPayGuard from "@router/consultPayGuard";
 
 const Home = loadable(lazy(() => import("@pages/home")));
 const Login = loadable(lazy(() => import("@pages/login")));
@@ -54,6 +56,9 @@ export const router = createBrowserRouter([
     },
     {
         path: 'illness', element: <Illness/>
+    },
+    {
+        path: 'consultPay', element: <ConsultPayGuard children={<ConsultPay/>}/>
     }
 
 

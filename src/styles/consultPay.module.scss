@@ -1,0 +1,207 @@
+
+
+// src/styles/consultPay.module.scss
+@use "color";
+@use "hairline";
+
+.page {
+  width: 100%;
+  height: calc(100vh - 11.73vw - 17.33vw);
+  overflow-y: auto;
+  background: color.$bg;
+  .top {
+    color: color.$text_1;
+    font-weight: 500;
+    font-size: 4.27vw;
+    padding: 4vw 4vw 3.33vw 4vw;
+    background: white;
+  }
+  .doctor {
+    display: flex;
+    position: relative;
+    padding: 0 4vw 3.33vw 4vw;
+    background: white;
+    @include hairline.hairline-bottom(#ededed);
+    &::after {
+      z-index: 1;
+    }
+    .avatar {
+      width: 10.13vw;
+      height: 10.13vw;
+      border-radius: 1.07vw;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .title {
+      padding-left: 3.6vw;
+      h4 {
+        color: color.$text_2;
+        font-weight: 500;
+        font-size: 4.27vw;
+      }
+      h5 {
+        color: color.$text_2;
+        font-size: 3.47vw;
+        font-weight: normal;
+      }
+    }
+  }
+  .list {
+    background: white;
+    padding: 0 4vw 0 4vw;
+    flex-wrap: wrap;
+    li {
+      padding: 5.33vw 0;
+      display: flex;
+      justify-content: space-between;
+      color: color.$text_2;
+      font-size: 4.27vw;
+      position: relative;
+      @include hairline.hairline-bottom(#ededed);
+      span {
+        &:last-child {
+          color: color.$tag;
+        }
+      }
+      i {
+        color: color.$price;
+        font-style: normal;
+      }
+      &::after {
+        z-index: 1;
+      }
+      &.vertical {
+        display: list-item;
+        span {
+          &:last-child {
+            display: block;
+            width: 100%;
+            margin-top: 4vw;
+          }
+        }
+      }
+    }
+  }
+  .divide {
+    background: #fafafa;
+    width: 100%;
+    height: 2.67vw;
+  }
+  h6.title {
+    color: color.$text_1;
+    font-weight: 500;
+    font-size: 4.27vw;
+    padding: 4vw;
+    background: #fff;
+  }
+  .agree {
+    background: #fff;
+    padding: 8vw 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    input {
+      width: 3.6vw;
+      height: 3.6vw;
+      margin-right: 0.8vw;
+    }
+    span {
+      color: color.$text_2;
+      font-size: 3.47vw;
+      i {
+        font-style: normal;
+        color: color.$main;
+      }
+    }
+  }
+}
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4vw 6.67vw;
+  height: 17.33vw;
+  .total {
+    color: color.$text_2;
+    font-size: 3.73vw;
+    display: flex;
+    align-items: center;
+    i {
+      font-style: normal;
+      margin-right: 2.67vw;
+    }
+    span {
+      color: color.$price;
+      font-weight: 500;
+      font-size: 5.33vw;
+    }
+  }
+  .pay_button {
+    width: 41.33vw;
+    height: 11.73vw;
+    border-radius: 5.87vw;
+    background: #2cb5a5;
+    text-align: center;
+    color: #fff;
+    font-size: 4.27vw;
+  }
+}
+.pay_method {
+  .title {
+    text-align: center;
+    color: #000000;
+    font-size: 4.27vw;
+    margin: 4.27vw 0 6.67vw 0;
+  }
+  .price {
+    color: #000000;
+    font-weight: 500;
+    font-size: 5.87vw;
+    text-align: center;
+    margin-bottom: 8vw;
+  }
+  .methods {
+    padding: 0 4vw;
+    li {
+      padding: 4vw 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .method {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        img {
+          width: 5.33vw;
+          height: 5.33vw;
+        }
+        span {
+          color: color.$text_2;
+          font-size: 4.27vw;
+          margin-left: 2.67vw;
+        }
+      }
+      input[type="radio"] {
+        width: 4.8vw;
+        height: 4.8vw;
+      }
+    }
+  }
+  .pay_button {
+    display: block;
+    width: 92vw;
+    height: 11.73vw;
+    border-radius: 5.87vw;
+    background: #2cb5a5;
+    text-align: center;
+    line-height: 11.73vw;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 4.27vw;
+    margin: 11.73vw auto;
+  }
+}
