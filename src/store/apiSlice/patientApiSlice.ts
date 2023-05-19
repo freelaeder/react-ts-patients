@@ -1,6 +1,5 @@
 import {apiSlice} from "@store/apiSlice/index";
 import {Patient, PatientResponse} from "../../types/patient";
-import * as url from "url";
 
 
 export const patientApiSlice = apiSlice.enhanceEndpoints({addTagTypes: ["patients"]}).injectEndpoints({

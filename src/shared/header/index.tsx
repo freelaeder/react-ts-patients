@@ -26,14 +26,7 @@ const Header = ({
     const navigate = useNavigate();
     // 返回上一页
     const toBack = () => navigate(-1);
-    const location = useLocation()
-    // useEffect(() => {
-    //     console.log(location,'location')
-    //         NProgress.start()
-    //     return () => {
-    //         NProgress.done()
-    //     }
-    // }, [location])
+
     return (
         <>
             {/*<FakeProgress/>*/}

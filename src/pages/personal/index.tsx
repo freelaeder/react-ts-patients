@@ -14,6 +14,7 @@ export default function Personal() {
     const {data, isLoading, isSuccess} = useRequestProfileQuery(undefined)
     // 加载提示
     useLoading(isLoading, isSuccess);
+    console.log( data?.data)
 
     const navigate = useNavigate()
     return (
@@ -56,62 +57,61 @@ export default function Personal() {
                                 </li>
                             </ul>
                         </div>
-                        <div className={styles.inquiring}>
-                            <h5>问诊中</h5>
-                            <div className={styles.content}>
-                                <Swiper autoplay={5000}
-                                        indicator={(total: number, current: number) => {
-                                            // console.log('total',total,'current',current)
-                                            //创建指示器数组
-                                            const items: React.ReactElement[] = [];
-                                            for (let i = 0; i < total; i++) {
-                                                items.push(
-                                                    <span key={i} className={classNames({
-                                                        [styles.active]: i == current
-                                                    })}></span>
-                                                )
+                        {
+                            data.data.consultationInfo.length !== 0 && (
+                                <div className={styles.inquiring}>
+                                    <h5>问诊中</h5>
+                                    <div className={styles.content}>
+
+                                        <Swiper autoplay={5000}
+                                                indicator={(total: number, current: number) => {
+                                                    // console.log('total',total,'current',current)
+                                                    //创建指示器数组
+                                                    const items: React.ReactElement[] = [];
+                                                    for (let i = 0; i < total; i++) {
+                                                        items.push(
+                                                            <span key={i} className={classNames({
+                                                                [styles.active]: i == current
+                                                            })}></span>
+                                                        )
+                                                    }
+
+                                                    return <div className={styles.indicator}>{items}</div>;
+                                                }}
+                                        >
+                                            {
+                                                data.data.consultationInfo.map(item => (
+                                                    <Swiper.Item key={item.orderId}>
+                                                        <div className={styles.item}>
+                                                            <div className={styles.avatar}>
+                                                                <img
+                                                                    src={item.avatar}
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                            <div className={styles.info}>
+                                                                <div className={styles.doctor}>
+                                                                    <span>{item.name}</span>
+                                                                    <i>{item.depName} | {item.positionalTitles}</i>
+                                                                </div>
+                                                                <div className={styles.hospital}>
+                                                                    <span>{item.gradeName}</span>
+                                                                    <i>{item.hospitalName}</i>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.consult}>进入咨询</div>
+                                                        </div>
+                                                    </Swiper.Item>
+                                                ))
                                             }
 
-                                            return <div className={styles.indicator}>{items}</div>;
-                                        }}
-                                >
-                                    {
-                                        data.data.consultationInfo.map(item => (
-                                            <Swiper.Item key={item.orderId}>
-                                                <div className={styles.item}>
-                                                    <div className={styles.avatar}>
-                                                        <img
-                                                            src={item.avatar}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div className={styles.info}>
-                                                        <div className={styles.doctor}>
-                                                            <span>{item.name}</span>
-                                                            <i>{item.depName} | {item.positionalTitles}</i>
-                                                        </div>
-                                                        <div className={styles.hospital}>
-                                                            <span>{item.gradeName}</span>
-                                                            <i>{item.hospitalName}</i>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.consult}>进入咨询</div>
-                                                </div>
-                                            </Swiper.Item>
-                                        ))
-                                    }
+                                        </Swiper>
 
 
-                                </Swiper>
-
-
-                                {/*<div className={styles.indicator}>*/}
-                                {/*    <span></span>*/}
-                                {/*    <span className={styles.active}></span>*/}
-                                {/*    <span></span>*/}
-                                {/*</div>*/}
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
                         <div className={styles.order}>
                             <div className={styles.top}>
                                 <h5>药品订单</h5>

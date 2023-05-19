@@ -194,7 +194,7 @@ export default function Illness() {
                     onClick={() => {
                         if (isValid) {
                             dispatch(saveConsult(formState));
-                            navigate('/patient')
+                            navigate('/patient?u=select')
                         }
                     }}
                     className={classNames(styles.next, {
