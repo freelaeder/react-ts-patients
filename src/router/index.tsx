@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import React, {lazy} from "react";
 import AuthRoute from "@router/authRoute";
 import loadable from "@shared/loadable";
@@ -9,6 +9,10 @@ import Illness from "@pages/illness";
 import {Loading} from "react-vant";
 import ConsultPay from "@pages/consultPay";
 import ConsultPayGuard from "@router/consultPayGuard";
+import ConsultRecord from "@pages/consultRecord";
+import FastRecord from "@pages/consultRecord/widgets/fast";
+import DoctorRecord from "@pages/consultRecord/widgets/doctor";
+import MedicinalRecord from "@pages/consultRecord/widgets/medicinal";
 
 const Home = loadable(lazy(() => import("@pages/home")));
 const Login = loadable(lazy(() => import("@pages/login")));
@@ -59,6 +63,23 @@ export const router = createBrowserRouter([
     },
     {
         path: 'consultPay', element: <ConsultPayGuard children={<ConsultPay/>}/>
+    },
+    {
+        path:'record',element:<ConsultRecord />,
+        children:[
+            {
+                path: '',element: <Navigate to={'/record/fast'} />
+            },
+            {
+                path: 'fast',element: <FastRecord />
+            },
+            {
+                path: 'doctor',element: <DoctorRecord />
+            },
+            {
+                path:'medicinal',element: <MedicinalRecord />
+            }
+        ]
     }
 
 

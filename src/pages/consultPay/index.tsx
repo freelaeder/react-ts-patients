@@ -45,7 +45,7 @@ export default function ConsultPay() {
                 // 仍要关闭
                 setVisible(false)
                 // 跳转到问诊记录
-                navigate("/fast");
+                navigate("/record/fast",{replace:true});
             })
     }
     if (typeof patientData === 'undefined' || typeof consultPreData === 'undefined') return null

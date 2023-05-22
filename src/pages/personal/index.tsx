@@ -182,7 +182,7 @@ export default function Personal() {
                         <div className={styles.shortcuts}>
                             <h5 className={styles.title}>快捷工具</h5>
                             <ul className={styles.list}>
-                                <li>
+                                <li onClick={()=> navigate('/record/fast') } >
                                     <div className={styles.imgContainer}>
                                         <img
                                             src={require("@icons/user/tool-01.svg").default}

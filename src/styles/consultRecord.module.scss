@@ -1,0 +1,137 @@
+// src/styles/consultRecord.module.scss
+@use "color";
+@use "hairline";
+.page {
+  height: calc(100vh - 11.73vw);
+  overflow-y: auto;
+  background: color.$bg;
+  .tab {
+    width: 100%;
+    height: 11.73vw;
+    display: flex;
+    position: relative;
+    background: #fff;
+    h5 {
+      flex: 1;
+      font-weight: normal;
+      color: color.$dark;
+      font-size: 3.73vw;
+      text-align: center;
+      line-height: 11.73vw;
+      &.active {
+        color: color.$text_1;
+        font-weight: 500;
+      }
+    }
+    .line {
+      width: 5.33vw;
+      height: 0.53vw;
+      background: color.$main;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+    }
+  }
+  .wrapper {
+    padding: 4vw;
+    li {
+      padding: 4vw;
+      background: #fff;
+      margin-bottom: 2.93vw;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 4vw;
+      position: relative;
+      @include hairline.hairline-bottom;
+      &::after {
+        z-index: 1;
+      }
+      .doctor {
+        display: flex;
+        align-items: center;
+        .avatar {
+          width: 5.33vw;
+          height: 5.33vw;
+          overflow: hidden;
+          border-radius: 50%;
+          margin-right: 2.67vw;
+          img,
+          svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .name {
+          color: #000000;
+          font-weight: 500;
+          font-size: 4vw;
+        }
+      }
+      .status {
+        color: #f2994a;
+        font-weight: 500;
+        font-size: 3.47vw;
+      }
+      .notPay {
+        color: #f2994a;
+      }
+      .notConsult {
+        color: color.$text_1;
+      }
+      .consulting {
+        color: color.$main;
+      }
+      .complete,
+      .cancel {
+        color: color.$dark;
+      }
+    }
+    .des {
+      padding-top: 4vw;
+      .item {
+        display: flex;
+        margin-bottom: 2.67vw;
+        .title {
+          flex: 1;
+          color: color.$tip;
+          font-size: 3.47vw;
+        }
+        .content {
+          flex: 3;
+          color: color.$text_1;
+          font-size: 3.47vw;
+        }
+      }
+    }
+    .meta {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      .button {
+        height: 7.87vw;
+        border-radius: 7.33vw;
+        font-size: 3.47vw;
+        padding: 0 3.2vw;
+        margin-left: 2.67vw;
+      }
+      .gray {
+        background: #fafafa;
+        border: 1px solid #ededede5;
+        color: color.$text_2;
+      }
+      .green {
+        background: #ffffff;
+        border: 1px solid #16c2a3;
+        color: color.$main;
+      }
+      .more {
+        font-size: 3.47vw;
+      }
+    }
+  }
+}
