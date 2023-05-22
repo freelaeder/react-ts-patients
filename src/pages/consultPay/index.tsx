@@ -2,8 +2,11 @@ import Header from "@shared/header";
 import styles from "@styles/consultPay.module.scss";
 import {useTypedSelector} from "@store/index";
 import {selectConsult} from "@store/slices/consultSlice";
-import {useRequestConsultInfoQuery} from "@store/apiSlice/consultApiSlice";
+import {useCreateConsultOrderMutation, useRequestConsultInfoQuery} from "@store/apiSlice/consultApiSlice";
 import {useRequestPatientQuery} from "@store/apiSlice/patientApiSlice";
+import {useState} from "react";
+import {ActionSheet, Dialog, Toast} from "react-vant";
+import {useNavigate} from "react-router-dom";
 
 // 预支付页面
 export default function ConsultPay() {
@@ -15,6 +18,36 @@ export default function ConsultPay() {
     const {data: consultPreData} = useRequestConsultInfoQuery({type: consult.type!, illnessType: consult.illnessType!})
     //获取患者信息
     const {data: patientData} = useRequestPatientQuery(consult.patientId!)
+    // 是否点击同意协议
+    const [isagree, setIsAgree] = useState(false)
+    // 创建问诊订单
+    const [createOrder] = useCreateConsultOrderMutation()
+    // 用于保存订单 id
+    const [orderId, setOrderId] = useState<string | undefined>(undefined);
+    // 动作模板
+    const [visible, setVisible] = useState(false)
+    const navigate = useNavigate()
+    // 取消订单
+    const onCancel = () => {
+
+
+        Dialog.confirm({
+            title: '关闭支付',
+            message: '取消支付将无法获得医生回复，医生接诊名额有限，是否确认关闭？',
+            confirmButtonText:'继续支付',
+            cancelButtonText:'仍要关闭'
+        })
+            .then(() => {
+                // 继续支付
+                console.log('confirm')
+            })
+            .catch(() => {
+                // 仍要关闭
+                setVisible(false)
+                // 跳转到问诊记录
+                navigate("/fast");
+            })
+    }
     if (typeof patientData === 'undefined' || typeof consultPreData === 'undefined') return null
     return (
         <>
@@ -59,7 +92,8 @@ export default function ConsultPay() {
                     </li>
                 </ul>
                 <div className={styles.agree}>
-                    <input type="checkbox" id="agree"/>
+                    <input checked={isagree} onChange={event => setIsAgree(event.currentTarget.checked)} type="checkbox"
+                           id="agree"/>
                     <label htmlFor="agree">
             <span>
               我已同意<i>支付协议</i>
@@ -70,31 +104,46 @@ export default function ConsultPay() {
             <div className={styles.summary}>
                 <div className={styles.total}>
                     <i>合计</i>
-                    <span>¥39.00</span>
+                    <span>¥ {consultPreData.data.actualPayment} </span>
                 </div>
-                <button className={styles.pay_button}>立即支付</button>
+                <button onClick={() => {
+                    if (isagree) {
+                        createOrder(consult).unwrap().then((res)=> {
+                            // 保存订单id
+                            setOrderId(res.data.id)
+                            // 开启动作面板
+                            setVisible(true)
+                        })
+                    } else {
+                        Toast.success({message: '请勾选协议'})
+                    }
+                }} className={styles.pay_button}>立即支付
+                </button>
             </div>
-            <div className={styles.pay_method}>
-                <div className={styles.title}>选择支付方式</div>
-                <div className={styles.price}>¥ 39</div>
-                <ul className={styles.methods}>
-                    <li>
-                        <label htmlFor="wechat" className={styles.method}>
-                            <img src={require("@icons/consult/wechat.svg").default} alt=""/>
-                            <span>微信支付</span>
-                        </label>
-                        <input type="radio" id="wechat"/>
-                    </li>
-                    <li>
-                        <label htmlFor="alipay" className={styles.method}>
-                            <img src={require("@icons/consult/alipay.svg").default} alt=""/>
-                            <span>支付宝支付</span>
-                        </label>
-                        <input type="radio" id="alipay"/>
-                    </li>
-                </ul>
-                <button className={styles.pay_button}>立即支付</button>
-            </div>
+            <ActionSheet visible={visible} onCancel={onCancel}>
+                <div className={styles.pay_method}>
+                    <div className={styles.title}>选择支付方式</div>
+                    <div className={styles.price}>¥ {consultPreData.data.actualPayment}</div>
+                    <ul className={styles.methods}>
+                        <li>
+                            <label htmlFor="wechat" className={styles.method}>
+                                <img src={require("@icons/consult/wechat.svg").default} alt=""/>
+                                <span>微信支付</span>
+                            </label>
+                            <input type="radio" id="wechat"/>
+                        </li>
+                        <li>
+                            <label htmlFor="alipay" className={styles.method}>
+                                <img src={require("@icons/consult/alipay.svg").default} alt=""/>
+                                <span>支付宝支付</span>
+                            </label>
+                            <input type="radio" id="alipay"/>
+                        </li>
+                    </ul>
+                    <button className={styles.pay_button}>立即支付</button>
+                </div>
+            </ActionSheet>
+
         </>
     );
 }

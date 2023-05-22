@@ -9,8 +9,17 @@ const consultApiSlice = apiSlice.injectEndpoints({
                 url: '/patient/consult/order/pre',
                 params
             })
+        }),
+        // 生成问诊订单
+        createConsultOrder: build.mutation<HealthResponse<{ id: string }>, PartialConsult>({
+            query: (body) => ({
+                url: '/patient/consult/order',
+                method: 'post',
+                body
+            })
         })
+
     })
 })
 
-export const {useRequestConsultInfoQuery} = consultApiSlice
+export const {useRequestConsultInfoQuery,useCreateConsultOrderMutation} = consultApiSlice
