@@ -7,6 +7,7 @@ import {articleSlice} from "@store/slices/articleSlice";
 import {doctorSlice} from "@store/slices/doctorSlice";
 import {consultSlice} from "@store/slices/consultSlice";
 import storage from "redux-persist/lib/storage";
+import {fastRecordSlice} from "@store/slices/fastRecordSlice";
 // 持久化问诊信息
 const consultPersisted = persistReducer({
     key: consultSlice.name, storage
@@ -18,7 +19,8 @@ const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
         [articleSlice.name]: articleSlice.reducer,
         [doctorSlice.name]: doctorSlice.reducer,
-        [consultSlice.name]: consultPersisted
+        [consultSlice.name]: consultPersisted,
+        [fastRecordSlice.name]:fastRecordSlice.reducer
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>

@@ -29,8 +29,6 @@ export default function ConsultPay() {
     const navigate = useNavigate()
     // 取消订单
     const onCancel = () => {
-
-
         Dialog.confirm({
             title: '关闭支付',
             message: '取消支付将无法获得医生回复，医生接诊名额有限，是否确认关闭？',

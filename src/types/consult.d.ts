@@ -78,3 +78,63 @@ type ConsultOrderPreDataResponse = HealthResponse<ConsultOrderPreData>
 // 问诊订单预付款传参
 
 type consultOrderPreParams = Pick<Consult, 'type' | 'illnessType'>
+
+// 问诊记录列表接口需要传递的参数的类型
+type ConsultRecordParams = Partial<PageParams & { type: ConsultType }>;
+
+interface PatientInfo {
+    id: string;
+    name: string;
+    idCard: string;
+    gender: number;
+    age: string;
+}
+
+interface DocInfo {
+    id: string;
+    name: string;
+    avatar: string;
+    depName: string;
+    positionalTitles: string;
+    major: string;
+    hospitalName: string;
+    gradeName: string;
+    score: number;
+    consultationNum: number;
+    serviceFee: number;
+    status: number;
+}
+
+interface ConsultOrder {
+    id: string;
+    orderNo: string;
+    type: number;
+    createTime: string;
+    patientInfo: PatientInfo;
+    illnessDesc: string;
+    illnessTime: number;
+    consultFlag: number;
+    liverFunction: number;
+    renalFunction: number;
+    allergicHistory: number;
+    fertilityStatus: number;
+    docInfo: DocInfo;
+    prescriptionId: string;
+    recordId: string;
+    status: string;
+    statusValue: string;
+    cancelReason: string;
+    cancelReasonValue: string;
+    cancelProcess: string;
+    countdown: number;
+    payment: number;
+    evaluateFlag: string;
+}
+
+
+// 问诊记录列表接口的返回值类型
+type ConsultRecordResponse = HealthResponse<{
+    total: number;
+    pageTotal: number;
+    rows: ConsultOrder[];
+}>;

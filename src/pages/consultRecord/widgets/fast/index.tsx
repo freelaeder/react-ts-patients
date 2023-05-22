@@ -1,65 +1,70 @@
-// src/pages/consultRecord/widgets/fast/index.tsx
 // 极速问诊组件
 import styles from "@styles/consultRecord.module.scss";
-import classNames from "classnames";
+import FastItem from "@pages/consultRecord/widgets/fastItem";
+import {consultApiSlice, useLazyConsultRecordsQuery} from "@store/apiSlice/consultApiSlice";
+import {useTypedDispatch, useTypedSelector} from "@store/index";
+import {
+    removeConsultOrder,
+    saveConsultOrder,
+    selectCurrent,
+    selectFastRecords,
+    selectHasMore,
+    selectPageSize,
+    updateCurrent, updateHasMore
+} from "@store/slices/fastRecordSlice";
+import Infinite from "@shared/infinite";
+import {useEffect} from "react";
+import {List} from "react-vant";
 
 export default function FastRecord() {
+
+    // 获取问诊列表
+    const [requestConsultOrders] = useLazyConsultRecordsQuery()
+    // 获取快速问诊订单列表
+    const fastRecords = useTypedSelector(selectFastRecords);
+    // 获取页码
+    const current = useTypedSelector(selectCurrent);
+    // 获取每页显示数据条数
+    const pageSize = useTypedSelector(selectPageSize);
+    // 获取是否还有更多数据的标识
+    const hasMore = useTypedSelector(selectHasMore);
+    // 获取 dispatch 方法
+    const dispatch = useTypedDispatch();
+    // 用于加载更多数据
+    const loadMore = (): Promise<any> => {
+        return requestConsultOrders({type: 2, current, pageSize})
+            .unwrap()
+            .then((response) => {
+                // 表示是否还有更多数据的布尔值
+                const hasMore = current < response.data.pageTotal;
+                // 更新页码
+                if (hasMore) dispatch(updateCurrent());
+                // 是否还有更多数据
+                dispatch(updateHasMore(hasMore));
+                // 存储问诊订单列表
+                dispatch(saveConsultOrder(response.data.rows));
+            });
+    };
+
+    useEffect(() => {
+        loadMore()
+        return () => {
+            dispatch(removeConsultOrder())
+        }
+    }, [])
+
+
     return (
-        <ul className={styles.wrapper}>
-            <li>
-                <div className={styles.top}>
-                    <div className={styles.doctor}>
-                        <div className={styles.avatar}>
-                            {/*<img src={require("@icons/consult/avatar.svg").default} alt="" />*/}
-                        </div>
-                        <div className={styles.name}>极速问诊（自动分配医生）</div>
-                    </div>
-                    <div className={classNames(styles.status, styles.notPay)}>待支付</div>
-                </div>
-                <div className={styles.des}>
-                    <div className={styles.item}>
-                        <div className={styles.title}>病情描述</div>
-                        <div className={styles.content}>腹痛腹泻 胃部有些痉挛</div>
-                    </div>
-                    <div className={styles.item}>
-                        <div className={styles.title}>价格</div>
-                        <div className={styles.content}>¥ 39.00</div>
-                    </div>
-                    <div className={styles.item}>
-                        <div className={styles.title}>创建时间</div>
-                        <div className={styles.content}>2019-07-08 09:55:54</div>
-                    </div>
-                </div>
-                <div className={styles.meta}>
-                    <button className={classNames(styles.button, styles.gray)}>
-                        取消问诊
-                    </button>
-                    <button className={classNames(styles.button, styles.green)}>
-                        去支付
-                    </button>
-                    <button className={classNames(styles.button, styles.green)}>
-                        继续沟通
-                    </button>
-                    <button className={classNames(styles.button, styles.gray)}>
-                        查看处方
-                    </button>
-                    <button className={classNames(styles.button, styles.gray)}>
-                        删除订单
-                    </button>
-                    <button className={classNames(styles.button, styles.green)}>
-                        咨询其他医生
-                    </button>
-                    <button className={classNames(styles.button, styles.gray)}>
-                        问诊记录
-                    </button>
-                    <button className={classNames(styles.button, styles.green)}>
-                        写评价
-                    </button>
-                    <button className={classNames(styles.button, styles.green)}>
-                        查看评价
-                    </button>
-                </div>
-            </li>
-        </ul>
+        <>
+            <ul className={styles.wrapper}>
+                <List finished={!hasMore} onLoad={loadMore} finishedText={'没有更多数据了'}>
+                    {
+                        fastRecords.map(item => <FastItem key={item.id} record={item}/>)
+                    }
+                </List>
+            </ul>
+            {/*<Infinite hasMore={hasMore} loadMore={loadMore} direction="vertical"/>*/}
+        </>
+
     );
 }
