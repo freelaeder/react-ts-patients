@@ -2,7 +2,11 @@ import Header from "@shared/header";
 import styles from "@styles/consultPay.module.scss";
 import {useTypedSelector} from "@store/index";
 import {selectConsult} from "@store/slices/consultSlice";
-import {useCreateConsultOrderMutation, useRequestConsultInfoQuery} from "@store/apiSlice/consultApiSlice";
+import {
+    useCreateConsultOrderMutation,
+    usePayConsultOrderMutation,
+    useRequestConsultInfoQuery
+} from "@store/apiSlice/consultApiSlice";
 import {useRequestPatientQuery} from "@store/apiSlice/patientApiSlice";
 import {useState} from "react";
 import {ActionSheet, Dialog, Toast} from "react-vant";
@@ -27,13 +31,17 @@ export default function ConsultPay() {
     // 动作模板
     const [visible, setVisible] = useState(false)
     const navigate = useNavigate()
+    // 记录用户选择的支付方式
+    const [payMethod, setPayMethod] = useState<0 | 1 | 2>(0)
+    // 获取订单地址
+    const [payUrl] = usePayConsultOrderMutation()
     // 取消订单
     const onCancel = () => {
         Dialog.confirm({
             title: '关闭支付',
             message: '取消支付将无法获得医生回复，医生接诊名额有限，是否确认关闭？',
-            confirmButtonText:'继续支付',
-            cancelButtonText:'仍要关闭'
+            confirmButtonText: '继续支付',
+            cancelButtonText: '仍要关闭'
         })
             .then(() => {
                 // 继续支付
@@ -43,7 +51,7 @@ export default function ConsultPay() {
                 // 仍要关闭
                 setVisible(false)
                 // 跳转到问诊记录
-                navigate("/record/fast",{replace:true});
+                navigate("/record/fast", {replace: true});
             })
     }
     if (typeof patientData === 'undefined' || typeof consultPreData === 'undefined') return null
@@ -106,7 +114,7 @@ export default function ConsultPay() {
                 </div>
                 <button onClick={() => {
                     if (isagree) {
-                        createOrder(consult).unwrap().then((res)=> {
+                        createOrder(consult).unwrap().then((res) => {
                             // 保存订单id
                             setOrderId(res.data.id)
                             // 开启动作面板
@@ -128,17 +136,36 @@ export default function ConsultPay() {
                                 <img src={require("@icons/consult/wechat.svg").default} alt=""/>
                                 <span>微信支付</span>
                             </label>
-                            <input type="radio" id="wechat"/>
+                            <input checked={payMethod === 0} onChange={(event) => {
+                                if (event.currentTarget.checked) {
+                                    setPayMethod(0)
+                                }
+                            }
+                            } name="payMethod" type="radio" id="wechat"/>
                         </li>
                         <li>
                             <label htmlFor="alipay" className={styles.method}>
                                 <img src={require("@icons/consult/alipay.svg").default} alt=""/>
                                 <span>支付宝支付</span>
                             </label>
-                            <input type="radio" id="alipay"/>
+                            <input checked={payMethod === 1} onChange={event => {
+                                if (event.currentTarget.checked) {
+                                    setPayMethod(1)
+                                }
+                            }} name="payMethod" type="radio" id="alipay"/>
                         </li>
                     </ul>
-                    <button className={styles.pay_button}>立即支付</button>
+                    <button onClick={() => {
+                        if (typeof orderId !== 'undefined') {
+                            // 获取支付地址
+                            payUrl({paymentMethod: payMethod, payCallback: 'http://localhost:3000/room', orderId}).unwrap().then(res => {
+                                // 获取地址，跳转
+                                window.location.href = res.data.payUrl
+                            })
+                        }
+
+                    }} className={styles.pay_button}>立即支付
+                    </button>
                 </div>
             </ActionSheet>
 

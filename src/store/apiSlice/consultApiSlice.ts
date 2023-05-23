@@ -24,6 +24,17 @@ export const consultApiSlice = apiSlice.injectEndpoints({
                 url: '/patient/consult/order/list',
                 params
             }),
+        }),
+        // 获取订单支付地址
+        payConsultOrder: build.mutation<HealthResponse<{ payUrl: string }>, {
+            // 0 微信支付 1 支付宝 2 云闪付
+            paymentMethod: 0 | 1 | 2; orderId: string; payCallback: string
+        }>({
+            query: (body) => ({
+                url: '/patient/consult/pay',
+                method: 'post',
+                body
+            })
         })
 
     })
@@ -32,5 +43,6 @@ export const consultApiSlice = apiSlice.injectEndpoints({
 export const {
     useRequestConsultInfoQuery,
     useCreateConsultOrderMutation,
-    useLazyConsultRecordsQuery
+    useLazyConsultRecordsQuery,
+    usePayConsultOrderMutation
 } = consultApiSlice
