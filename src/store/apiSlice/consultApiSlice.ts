@@ -46,13 +46,23 @@ export const consultApiSlice = apiSlice.injectEndpoints({
         orderDetail: build.query<ConsultOrderResponse, string>({
             query: (orderId) => ({
                 url: "/patient/consult/order/detail",
-                params: { orderId },
+                params: {orderId},
             }),
         }),
         // 获取处方
-        prescription:build.query<HealthResponse<{ url:string }>,string>({
-            query:(id)=> ({
-                url:`/patient/consult/prescription/${id}`
+        prescription: build.query<HealthResponse<{ url: string }>, string>({
+            query: (id) => ({
+                url: `/patient/consult/prescription/${id}`
+            })
+        }),
+        // 评价医生
+        evaluateDoctor: build.mutation<HealthResponse<{ id: string }>, {
+            docId: string; orderId: string; score: number; content: string; anonymousFlag: 0 | 1
+        }>({
+            query: (body) => ({
+                url: '/patient/order/evaluate',
+                method: 'post',
+                body
             })
         })
 
@@ -65,5 +75,6 @@ export const {
     useLazyConsultRecordsQuery,
     usePayConsultOrderMutation,
     useOrderDetailQuery,
-    usePrescriptionQuery
+    usePrescriptionQuery,
+    useEvaluateDoctorMutation
 } = consultApiSlice

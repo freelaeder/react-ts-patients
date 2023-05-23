@@ -9,12 +9,16 @@ import {useTypedSelector} from "@store/index";
 import {selectAuth} from "@store/slices/authSlice";
 import {Message} from "../../../../types/room";
 import Prescript from "@pages/room/widgets/prescript";
+import Evaluate from "@pages/room/widgets/evaluate";
+import EvaluateComplete from "@pages/room/widgets/evaluate_c";
 
 interface Props {
     messages: Message[];
+    orderId?: string;
+    docId?: string;
 }
 
-export default function MessageCom({messages}: Props) {
+export default function MessageCom({messages,orderId,docId}: Props) {
     // 获取用户id
     const {id} = useTypedSelector(selectAuth);
     return <>
@@ -37,6 +41,13 @@ export default function MessageCom({messages}: Props) {
                 // 处方消息
                 case MsgType.CardPre:
                     return <Prescript key={message.id} prescription={message.msg.prescription!}/>
+                // 未评价
+                case MsgType.CardEvaForm:
+                    return <Evaluate orderId={orderId!} docId={docId!} key={message.id}/>;
+
+                // 已评价
+                case MsgType.CardEva:
+                    return <EvaluateComplete key={message.id} score={message.msg.evaluateDoc!.score} />;
 
                 default:
                     return null;

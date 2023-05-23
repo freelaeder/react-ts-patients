@@ -141,7 +141,7 @@ export default function Room() {
             <Header title="医生问诊室" backHandler={() => navigate("/")}/>
             <div ref={pageRef} className={styles.page}>
                 <Status status={data?.data.status} countDown={data?.data.countdown} />
-                <MessageCom messages={messages}/>
+                <MessageCom orderId={data?.data.id} docId={data?.data.docInfo?.id}  messages={messages}/>
             </div>
             <Action sendMsg={sendMsg} sendImg={sendImg} status={data?.data.status} />
         </>

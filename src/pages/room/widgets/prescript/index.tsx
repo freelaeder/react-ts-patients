@@ -4,7 +4,6 @@ import {RightOutline} from "antd-mobile-icons";
 import {Prescription} from "../../../../types/room";
 import { usePrescriptionQuery} from "@store/apiSlice/consultApiSlice";
 import {ImagePreview} from "react-vant";
-import {useEffect} from "react";
 
 interface Props {
     // 处方
