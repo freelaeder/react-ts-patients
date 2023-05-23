@@ -2,6 +2,8 @@
 /// <reference path="../enums/consult.ts" />
 
 // 问诊类型
+import {OrderStatus} from "@enums/consult";
+
 enum ConsultType {
     // 找医生
     Doctor = 1,
@@ -121,7 +123,7 @@ interface ConsultOrder {
     docInfo?: DocInfo;
     prescriptionId?: string;
     recordId: string;
-    status: string;
+    status: OrderStatus;
     statusValue: string;
     cancelReason: string;
     cancelReasonValue: string;
@@ -138,3 +140,5 @@ type ConsultRecordResponse = HealthResponse<{
     pageTotal: number;
     rows: ConsultOrder[];
 }>;
+// 订单详情返回值类型
+type ConsultOrderResponse = HealthResponse<ConsultOrder>;

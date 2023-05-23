@@ -35,7 +35,14 @@ export const consultApiSlice = apiSlice.injectEndpoints({
                 method: 'post',
                 body
             })
-        })
+        }),
+        // 获取订单详情
+        orderDetail: build.query<ConsultOrderResponse, string>({
+            query: (orderId) => ({
+                url: "/patient/consult/order/detail",
+                params: { orderId },
+            }),
+        }),
 
     })
 })
@@ -44,5 +51,6 @@ export const {
     useRequestConsultInfoQuery,
     useCreateConsultOrderMutation,
     useLazyConsultRecordsQuery,
-    usePayConsultOrderMutation
+    usePayConsultOrderMutation,
+    useOrderDetailQuery
 } = consultApiSlice
