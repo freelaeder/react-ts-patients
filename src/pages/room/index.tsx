@@ -2,10 +2,8 @@
 import styles from "@styles/room.module.scss";
 import {Helmet} from "react-helmet";
 import Header from "@shared/header";
-import classNames from "classnames";
-import {PictureOutline, RightOutline, StarFill, StarOutline} from "antd-mobile-icons";
+import {PictureOutline } from "antd-mobile-icons";
 import React, {useEffect, useRef, useState} from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {io, Socket} from "socket.io-client";
 import {useTypedSelector} from "@store/index";

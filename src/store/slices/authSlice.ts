@@ -3,7 +3,6 @@ import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {AppState} from "@store/index";
 import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import App from "../../App";
 
 export interface AuthState {
     auth: Partial<Auth>

@@ -1,7 +1,5 @@
 // src/pages/room/widgets/patient/index.tsx
 import { IllnessTime } from "@enums/consult";
-// import { ImageViewer } from "antd-mobile";
-import { useState } from "react";
 import styles from '@styles/room.module.scss'
 import {ImagePreview} from "react-vant";
 interface Props {
@@ -25,7 +23,6 @@ export default function Patient({
                                         pictures,
                                     },
                                 }: Props) {
-    const [visible, setVisible] = useState(false);
     const images = pictures.map(item => item.url)
     return (
         <div className={styles.card}>

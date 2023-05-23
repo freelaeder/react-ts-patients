@@ -118,8 +118,8 @@ interface ConsultOrder {
     renalFunction: number;
     allergicHistory: number;
     fertilityStatus: number;
-    docInfo: DocInfo;
-    prescriptionId: string;
+    docInfo?: DocInfo;
+    prescriptionId?: string;
     recordId: string;
     status: string;
     statusValue: string;
