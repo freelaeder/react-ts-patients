@@ -1,4 +1,10 @@
 import {apiSlice} from "@store/apiSlice/index";
+import {
+    ConsultOrderPreDataResponse,
+    consultOrderPreParams,
+    ConsultOrderResponse, ConsultRecordParams, ConsultRecordResponse,
+    PartialConsult
+} from "../../types/consult";
 
 
 export const consultApiSlice = apiSlice.injectEndpoints({
@@ -43,6 +49,12 @@ export const consultApiSlice = apiSlice.injectEndpoints({
                 params: { orderId },
             }),
         }),
+        // 获取处方
+        prescription:build.query<HealthResponse<{ url:string }>,string>({
+            query:(id)=> ({
+                url:`/patient/consult/prescription/${id}`
+            })
+        })
 
     })
 })
@@ -52,5 +64,6 @@ export const {
     useCreateConsultOrderMutation,
     useLazyConsultRecordsQuery,
     usePayConsultOrderMutation,
-    useOrderDetailQuery
+    useOrderDetailQuery,
+    usePrescriptionQuery
 } = consultApiSlice

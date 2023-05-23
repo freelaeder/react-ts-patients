@@ -25,7 +25,6 @@ export default function Patient({
                                     },
                                 }: Props) {
     const images = pictures.map(item => item.url)
-    console.log(images,'im')
     return (
         <div className={styles.card}>
             <div className={styles.info_1}>

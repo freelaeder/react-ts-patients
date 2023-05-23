@@ -9,7 +9,7 @@ import {Toast} from "react-vant";
 
 interface Props {
     // 订单状态
-    status: OrderStatus;
+    status: OrderStatus | undefined;
     sendMsg: (text: string) => void;
     sendImg: (img: Image) => void;
 }
