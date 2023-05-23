@@ -133,6 +133,24 @@ export default function Room() {
         })
     }
 
+    // 用于更新本地评价
+    const updateEvaluate = (score: number) => {
+        // 获取未评价消息索引
+        const index = messages.findIndex(
+            (message) => message.msgType === MsgType.CardEvaForm
+        );
+        const message = messages[index];
+        // 更新消息
+        setMessages([
+            ...messages.slice(0, index),
+            {
+                ...message,
+                msgType: MsgType.CardEva,
+                msg: { ...message.msg, evaluateDoc: { score } },
+            },
+            ...messages.slice(index + 1),
+        ]);
+    };
     return (
         <>
             <Helmet>
@@ -141,9 +159,9 @@ export default function Room() {
             <Header title="医生问诊室" backHandler={() => navigate("/")}/>
             <div ref={pageRef} className={styles.page}>
                 <Status status={data?.data.status} countDown={data?.data.countdown} />
-                <MessageCom orderId={data?.data.id} docId={data?.data.docInfo?.id}  messages={messages}/>
+                <MessageCom updateEvaluate={updateEvaluate} orderId={data?.data.id} docId={data?.data.docInfo?.id}  messages={messages}/>
             </div>
-            <Action sendMsg={sendMsg} sendImg={sendImg} status={data?.data.status} />
+            <Action sendMsg={sendMsg} sendImg={sendImg}  status={data?.data.status} />
         </>
     );
 }

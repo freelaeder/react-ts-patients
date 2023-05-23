@@ -38,6 +38,7 @@ export default function Action({status, sendMsg, sendImg}: Props) {
         // 上传图片
         upload(form).unwrap().then((res) => {
             sendImg(res.data)
+            Toast({message:'上传图片成功'})
         })
     }
 

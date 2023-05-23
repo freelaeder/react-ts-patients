@@ -16,9 +16,10 @@ interface Props {
     messages: Message[];
     orderId?: string;
     docId?: string;
+    updateEvaluate?: (score: number) => void;
 }
 
-export default function MessageCom({messages,orderId,docId}: Props) {
+export default function MessageCom({messages, orderId, docId,updateEvaluate}: Props) {
     // 获取用户id
     const {id} = useTypedSelector(selectAuth);
     return <>
@@ -43,11 +44,11 @@ export default function MessageCom({messages,orderId,docId}: Props) {
                     return <Prescript key={message.id} prescription={message.msg.prescription!}/>
                 // 未评价
                 case MsgType.CardEvaForm:
-                    return <Evaluate orderId={orderId!} docId={docId!} key={message.id}/>;
+                    return <Evaluate updateEvaluate={updateEvaluate!} orderId={orderId!} docId={docId!} key={message.id}/>;
 
                 // 已评价
                 case MsgType.CardEva:
-                    return <EvaluateComplete key={message.id} score={message.msg.evaluateDoc!.score} />;
+                    return <EvaluateComplete key={message.id} score={message.msg.evaluateDoc!.score}/>;
 
                 default:
                     return null;

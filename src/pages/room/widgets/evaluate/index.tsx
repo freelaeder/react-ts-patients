@@ -8,9 +8,10 @@ import {useEvaluateDoctorMutation} from "@store/apiSlice/consultApiSlice";
 interface Props {
     docId: string;
     orderId: string;
+    updateEvaluate:(score:number) => void;
 }
 
-export default function Evaluate({docId, orderId}: Props) {
+export default function Evaluate({docId, orderId,updateEvaluate}: Props) {
     // 评价分数
     const [value, setValue] = useState(3);
     // 评价内容
@@ -23,6 +24,7 @@ export default function Evaluate({docId, orderId}: Props) {
         if (con.trim().length === 0) return Toast({message: '请输入评价内容'})
         sendEva({docId, orderId, score: value, content: con, anonymousFlag: anony ? 1 : 0}).unwrap().then(() => {
             Toast({message: '提交评价成功'})
+            updateEvaluate(value)
         })
     }
     return (
