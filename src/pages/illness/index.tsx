@@ -13,6 +13,7 @@ import {z} from "zod";
 import {useNavigate} from "react-router-dom";
 import {useTypedDispatch, useTypedSelector} from "@store/index";
 import {saveConsult, selectConsult} from "@store/slices/consultSlice";
+import {Consult} from "../../types/consult";
 
 const schema = z.object({
     illnessDesc: z.string().min(1, "病情描述不能为空"),

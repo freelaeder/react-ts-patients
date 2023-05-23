@@ -2,7 +2,6 @@
 import styles from "@styles/room.module.scss";
 import {Helmet} from "react-helmet";
 import Header from "@shared/header";
-import {PictureOutline } from "antd-mobile-icons";
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {io, Socket} from "socket.io-client";
@@ -10,10 +9,12 @@ import {useTypedSelector} from "@store/index";
 import {selectAuth, selectToken} from "@store/slices/authSlice";
 import {nanoid} from "@reduxjs/toolkit";
 import {MsgType} from "@enums/room";
-import Message from "@pages/room/widgets/message";
+import MessageCom from "@pages/room/widgets/message";
 import {useOrderDetailQuery} from "@store/apiSlice/consultApiSlice";
 import Status from "@pages/room/widgets/status";
 import Action from "@pages/room/widgets/action";
+import {Image} from "../../types/consult";
+import {Message, TimeMessages} from "../../types/room";
 
 export default function Room() {
     // 用于实现页面跳转
@@ -32,15 +33,7 @@ export default function Room() {
     const { data, refetch } = useOrderDetailQuery(orderId!);
     // 获取用户 id
     const { id } = useTypedSelector(selectAuth);
-    // 用于发送文字信息
-    const sendMsg = (text: string) => {
-        socket.current?.emit("sendChatMsg", {
-            from: id,
-            to: data?.data.docInfo?.id,
-            msgType: MsgType.MsgText,
-            msg: { content: text },
-        });
-    };
+
     // 获取.page
     const pageRef = useRef<HTMLDivElement| null>(null)
 
@@ -109,16 +102,34 @@ export default function Room() {
         };
     }, [orderId,refetch, token])
 
+    // 若页
      messages.sort(function (a, b){
          return new Date(a.createTime).getTime() - new Date(b.createTime).getTime()
      })
 
-    console.log(messages,'---')
     // 滚动到最新位置
     const scrollToBottom = () => {
         pageRef.current?.scrollTo({
             top:pageRef.current?.scrollHeight,
             behavior:'smooth'
+        })
+    }
+    // 用于发送文字信息
+    const sendMsg = (text: string) => {
+        socket.current?.emit("sendChatMsg", {
+            from: id,
+            to: data?.data.docInfo?.id,
+            msgType: MsgType.MsgText,
+            msg: { content: text },
+        });
+    };
+    // 发送图片消息
+    const sendImg = (img:Image) => {
+        socket.current?.emit('sendChatMsg',{
+            from: id,
+            to: data?.data.docInfo?.id,
+            msgType: MsgType.MsgImage,
+            msg: { picture: img },
         })
     }
 
@@ -130,9 +141,9 @@ export default function Room() {
             <Header title="医生问诊室" backHandler={() => navigate("/")}/>
             <div ref={pageRef} className={styles.page}>
                 <Status status={data?.data.status} countDown={data?.data.countdown} />
-                <Message messages={messages}/>
+                <MessageCom messages={messages}/>
             </div>
-            <Action sendMsg={sendMsg} status={data?.data.status} />
+            <Action sendMsg={sendMsg} sendImg={sendImg} status={data?.data.status} />
         </>
     );
 }

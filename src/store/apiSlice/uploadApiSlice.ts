@@ -1,4 +1,5 @@
 import {apiSlice} from "@store/apiSlice/index";
+import {Image} from "../../types/consult";
 
 
 const uploadApiSlice = apiSlice.injectEndpoints({

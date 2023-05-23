@@ -1,5 +1,8 @@
 
 // 一条消息的类型
+import {Consult} from "./consult";
+import {Patient} from "./patient";
+
 type Message = {
     // 消息ID
     id: string;

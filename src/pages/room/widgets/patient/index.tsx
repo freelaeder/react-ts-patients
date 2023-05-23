@@ -2,6 +2,7 @@
 import { IllnessTime } from "@enums/consult";
 import styles from '@styles/room.module.scss'
 import {ImagePreview} from "react-vant";
+import {ConsultRecord} from "../../../../types/room";
 interface Props {
     // 接收问诊信息和就诊信息
     consultRecord: ConsultRecord;
@@ -24,6 +25,7 @@ export default function Patient({
                                     },
                                 }: Props) {
     const images = pictures.map(item => item.url)
+    console.log(images,'im')
     return (
         <div className={styles.card}>
             <div className={styles.info_1}>

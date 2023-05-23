@@ -7,12 +7,13 @@ import SayDoctor from "@pages/room/widgets/say_doctor";
 import SayPatient from "@pages/room/widgets/say_patient";
 import {useTypedSelector} from "@store/index";
 import {selectAuth} from "@store/slices/authSlice";
+import {Message} from "../../../../types/room";
 
 interface Props {
     messages: Message[];
 }
 
-export default function Message({ messages }: Props) {
+export default function MessageCom({ messages }: Props) {
     // 获取用户id
     const { id } = useTypedSelector(selectAuth);
     return <>
@@ -25,6 +26,7 @@ export default function Message({ messages }: Props) {
                 case MsgType.CardPat:
                     return <Patient key={message.id} consultRecord={message.msg.consultRecord!} />;
                 // 匹配文字类型的消息
+                case MsgType.MsgImage:
                 case MsgType.MsgText:
                     return message.from === id ? (
                         <SayPatient key={message.id} message={message} />
