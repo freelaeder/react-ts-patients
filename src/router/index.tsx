@@ -21,6 +21,8 @@ const Layout = loadable(lazy(() => import("@shared/layout")));
 const Notice = loadable(lazy(() => import("@pages/notice")));
 const Article = loadable(lazy(() => import("@pages/article")));
 const Patient = loadable(lazy(() => import("@pages/patient")));
+const Room = loadable(lazy(()=> import("@pages/room")))
+
 
 
 const style: React.CSSProperties = {
@@ -80,6 +82,9 @@ export const router = createBrowserRouter([
                 path:'medicinal',element: <MedicinalRecord />
             }
         ]
+    },
+    {
+        path:'room',element:<Room />
     }
 
 

@@ -1,0 +1,329 @@
+// src/styles/room.module.scss
+@use "color";
+@use "hairline";
+
+.page {
+  background: color.$bg;
+  height: calc(100vh - 17.33vw - 11.73vw);
+  overflow-y: auto;
+  overflow-x: hidden;
+  .wait {
+    width: 100%;
+    padding: 3.47vw 4vw;
+    text-align: center;
+    background: color.$plain;
+    color: color.$main;
+    font-weight: 500;
+    font-size: 3.47vw;
+  }
+  .tips {
+    display: flex;
+    width: 92vw;
+    justify-content: center;
+    margin: 4vw auto;
+    span {
+      border-radius: 5.33vw;
+      background: #ffffff;
+      padding: 1.33vw 4.4vw;
+      color: #848484;
+      font-size: 3.2vw;
+      i {
+        color: color.$main;
+        font-style: normal;
+      }
+    }
+  }
+  .card {
+    width: 92vw;
+    margin: 0 auto;
+    padding: 3.47vw 4vw;
+    background: #fff;
+    border-radius: 2.67vw;
+    .info_1 {
+      color: color.$text_1;
+      font-weight: 500;
+      font-size: 4.27vw;
+    }
+    .info_2 {
+      color: color.$tag;
+      font-size: 3.2vw;
+      margin-top: 1.33vw;
+      padding-bottom: 4vw;
+      position: relative;
+      @include hairline.hairline-bottom;
+    }
+    .info_3 {
+      padding-top: 4vw;
+      li {
+        display: flex;
+        padding-bottom: 2.67vw;
+        span:nth-child(1) {
+          color: color.$text_2;
+          font-weight: 500;
+          font-size: 3.2vw;
+          width: 16.8vw;
+          flex-shrink: 0;
+        }
+        span:nth-child(2) {
+          color: color.$tag;
+          font-size: 3.2vw;
+        }
+      }
+    }
+  }
+  .chat {
+    display: flex;
+    width: 92vw;
+    margin: 6vw auto;
+    .avatar {
+      width: 10.13vw;
+      height: 10.13vw;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .container {
+      .time {
+        color: #979797;
+        font-size: 3.47vw;
+        margin-bottom: 1.33vw;
+      }
+      .content {
+        max-width: 64vw;
+        padding: 3vw 3.5vw;
+        color: #3c3e42;
+        font-size: 4vw;
+        background: #fff;
+        border-radius: 2.67vw;
+      }
+    }
+    .imgContainer {
+      .content {
+        padding: 0;
+        width: 42.66667vw;
+        overflow: hidden;
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    &.doctor {
+      .container {
+        margin-left: 3.47vw;
+      }
+    }
+    &.patient {
+      justify-content: flex-end;
+      .container {
+        margin-right: 3.47vw;
+        .time {
+          text-align: right;
+        }
+        .content {
+          color: #fff;
+          background: color.$main;
+        }
+      }
+    }
+  }
+  .prescript {
+    width: 92vw;
+    border-radius: 2.67vw;
+    background: #fff;
+    overflow: hidden;
+    margin: 0 auto 4vw auto;
+    .patient {
+      position: relative;
+      padding: 3.47vw 4vw;
+      @include hairline.hairline-bottom;
+      .info_1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.33vw;
+        span {
+          color: #121826;
+          font-weight: 500;
+          font-size: 4.27vw;
+        }
+        i {
+          font-style: normal;
+          color: #848484;
+          font-size: 3.2vw;
+        }
+      }
+      .info_2 {
+        color: color.$tag;
+        font-size: 3.2vw;
+        margin-top: 1.07vw;
+      }
+    }
+    .body {
+      padding: 3.47vw 4vw;
+      .item {
+        margin-top: 4vw;
+        .name {
+          display: flex;
+          justify-content: space-between;
+          color: color.$text_1;
+          font-weight: 500;
+          font-size: 3.73vw;
+        }
+        .content {
+          color: color.$tag;
+          font-size: 3.2vw;
+          margin-top: 1.33vw;
+          line-height: 5.33vw;
+        }
+      }
+    }
+    .buy {
+      width: 100%;
+      height: 11.2vw;
+      line-height: 11.2vw;
+      text-align: center;
+      font-weight: 500;
+      font-size: 4.27vw;
+      background: color.$main;
+      display: block;
+      color: #fff;
+    }
+  }
+  .consultation {
+    //width: 100%;
+    background: #fff;
+    padding: 2.67vw 4vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3.47vw;
+    span {
+      color: color.$main;
+    }
+    i {
+      font-style: normal;
+    }
+    b {
+      font-weight: normal;
+      color: #333;
+    }
+  }
+  .appraise {
+    width: 92vw;
+    background: #fff;
+    padding: 4vw;
+    margin: 0 auto 5vw auto;
+    .title {
+      text-align: center;
+      color: color.$text_1;
+      font-size: 4vw;
+      margin-bottom: 1.33vw;
+    }
+    .question {
+      color: color.$text_3;
+      font-size: 3.2vw;
+      text-align: center;
+    }
+    .stars {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6vw;
+      color: rgb(250, 219, 20);
+      margin-top: 1.33vw;
+      svg {
+        margin: 0 0.8vw;
+      }
+    }
+    .wrapper {
+      width: 100%;
+      position: relative;
+      .content {
+        width: 100%;
+        border-radius: 2.67vw;
+        background: #fafafa;
+        min-height: 26.67vw;
+        margin-top: 2vw;
+        padding: 4.67vw 4vw 7vw 4vw;
+        color: color.$dark;
+        font-size: 3.47vw;
+        line-height: 5.33vw;
+      }
+      .total {
+        position: absolute;
+        right: 4vw;
+        bottom: 4vw;
+        color: color.$text_3;
+        font-size: 3.2vw;
+      }
+    }
+    .meta {
+      display: flex;
+      margin-top: 2.67vw;
+      justify-content: space-between;
+      .unKnow {
+        display: flex;
+        align-items: center;
+        font-size: 3.2vw;
+        color: color.$text_3;
+        input {
+          width: 3.2vw;
+          height: 3.2vw;
+        }
+        span {
+          margin-left: 1.33vw;
+        }
+      }
+      .submit {
+        padding: 2vw 4.26667vw;
+        background: color.$main;
+        color: #fff;
+        border-radius: 2.67vw;
+        font-size: 3.2vw;
+      }
+    }
+  }
+}
+.bottom {
+  height: 16.33vw;
+  display: flex;
+  align-items: center;
+  padding: 0 4vw;
+  .ask {
+    width: 80.67vw;
+    height: 10.67vw;
+    border-radius: 6.67vw;
+    padding: 0 4vw;
+    background: #fafafa;
+    font-size: 4.27vw;
+    color: color.$tag;
+    margin-right: 2vw;
+    &::placeholder {
+      color: color.$tip;
+    }
+  }
+  .upload {
+    width: 9vw;
+    text-align: right;
+    position: relative;
+    svg {
+      font-size: 8.87vw;
+    }
+    input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+}
